@@ -1,9 +1,10 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {configureStore} from "@reduxjs/toolkit";
-import productReducer from "@/store/reducers/productSlice";
+import productSlice from "@/store/reducers/productSlice";
+// import productReducer from "@/store/reducers/productSlice";
 
 const rootReducer = combineReducers({
-    productReducer
+    product:productSlice.reducer
 })
 
 export const setupStore = () => {
@@ -11,6 +12,9 @@ export const setupStore = () => {
             reducer: rootReducer,
     })
 }
+
+export const productSliceActions = productSlice.actions;
+
 export type RootState = ReturnType<typeof rootReducer>
 export type AppStore = ReturnType<typeof setupStore>
 export type AppDispatch = AppStore['dispatch']
