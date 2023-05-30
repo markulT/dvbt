@@ -4,7 +4,7 @@ import {FC} from "react";
 const ProductCard:FC = () => {
     return (
         <div className="flex">
-            <div className="p-3 bg-white flex flex-col rounded-2xl drop-shadow-xl hover:drop-shadow-xl group hover:scale-105 transition-transform duration-500">
+            <div className="p-3 bg-white flex flex-col rounded-2xl drop-shadow-xl hover:drop-shadow-xl group hover:scale-105 transition-transform duration-500 cursor-pointer">
                 <div className="w-auto h-44">
                     <div className="relative w-full h-full">
                         <Image

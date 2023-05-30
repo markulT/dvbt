@@ -8,13 +8,17 @@ import {MdGroups2} from 'react-icons/md';
 import {MdGroup} from 'react-icons/md';
 import {MdPerson} from 'react-icons/md';
 import Navbar from "../comps/Navbar";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {btoa} from "buffer";
+
 // Noto_Sans({
 //     weight: '400',
 //     preload: false,
 // });
 export default function Home() {
     const [open, setOpen] = useState<boolean>(false)
+    const [img, setImg] = useState<string>()
+
     return (
         <main className={"bg-white-bg"}>
 
