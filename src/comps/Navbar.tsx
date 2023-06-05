@@ -32,7 +32,7 @@ const Navbar: FC = () => {
                     }}
                     height={60}
                     width={200}
-                    src={'./images/mainPage/logo-color.svg'}
+                    src={'/images/mainPage/logo-color.svg'}
                     className={"cursor-pointer outline-0 remove-highlight z-[115]"}
                 />
             </div>

@@ -3,13 +3,24 @@ import ProductCard from "@/comps/ProductCard";
 import Navbar from "@/comps/Navbar";
 import dynamic from "next/dynamic";
 import GradientButton from "@/comps/GradientButton";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector} from "@/store/hooks/redux";
+import {getAllTowers} from "@/store/reducers/tower/towerThunk";
 
 const MapWithNoSsr = dynamic(() => import('@/components/utilMap'), {ssr: false})
 // aa
 const Determination = () => {
 
     const [edit, setEdit] = useState<boolean>(false)
+    const dispatch = useAppDispatch()
+    const towerList = useAppSelector((state)=>state.tower.list)
+
+    useEffect(()=>{
+        async function fetchData() {
+            dispatch(getAllTowers())
+        }
+        fetchData()
+    }, [])
 
     return (
         <div className={"bg-white-bg w-full h-full"}>
@@ -59,7 +70,7 @@ const Determination = () => {
                                     </div>
                                 </div>
                                 <div className={'basis-1/2 grow-0'}>
-                                    <MapWithNoSsr {...{edit: edit}}/>
+                                    <MapWithNoSsr {...{edit: edit, dvbtArr:towerList}}/>
                                 </div>
                             </div>
                         </div>

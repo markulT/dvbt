@@ -16,6 +16,13 @@
   }
 }
 
+.pb-cardAspect {
+  padding-bottom: 100%;
+}
+.pb-pageAspect {
+  padding-bottom: 50%;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(

@@ -6,14 +6,16 @@ import Navbar from "@/comps/Navbar";
 
 const Services: FC = () => {
     return (
-        <div className="bg-white-bg w-full h-full">
+        <div className="bg-white-bg w-full min-h-screen">
             <Navbar />
             <main>
                 <article>
-                    <section className="mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-20 2xl:mx-28">
-                        <h1 className="text-4xl text-blue-5 font-bold">Як прикрутити антену?</h1>
-                        <div id="scroll-container-1" className="flex overflow-x-scroll pb-4 mt-4 hide-scroll-bar">
+                    <section className="">
+                        <h1 className="text-4xl text-blue-5 font-bold mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-20 2xl:mx-28">Як прикрутити антену?</h1>
+                        <div id="scroll-container-1" className="flex overflow-x-scroll pb-4 mt-4 hide-scroll-bar ">
                             <div className="flex gap-4">
+                                <ServiceCard/>
+                                <ServiceCard/>
                                 <ServiceCard/>
                                 <ServiceCard/>
                                 <ServiceCard/>
@@ -53,24 +55,24 @@ const Services: FC = () => {
                         <ProgressBar containerId="scroll-container-1"/>
                     </section>
 
-                    <section className="mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-20 2xl:mx-28 mt-10 pb-52">
-                        <h1 className="text-4xl text-blue-5 font-bold">Як зремонтувати антену?</h1>
-                        <div id="scroll-container-2" className="flex overflow-x-scroll pb-4 mt-4 hide-scroll-bar">
-                            <div className="flex gap-4">
-                                <ServiceCard/>
-                                <ServiceCard/>
-                                <ServiceCard/>
-                                <ServiceCard/>
-                                <ServiceCard/>
-                                <ServiceCard/>
-                                <ServiceCard/>
-                                <ServiceCard/>
-                                <ServiceCard/>
+                    {/*<section className="mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-20 2xl:mx-28 mt-10 pb-52">*/}
+                    {/*    <h1 className="text-4xl text-blue-5 font-bold">Як зремонтувати антену?</h1>*/}
+                    {/*    <div id="scroll-container-2" className="flex overflow-x-scroll pb-4 mt-4 hide-scroll-bar">*/}
+                    {/*        <div className="flex gap-4">*/}
+                    {/*            <ServiceCard/>*/}
+                    {/*            <ServiceCard/>*/}
+                    {/*            <ServiceCard/>*/}
+                    {/*            <ServiceCard/>*/}
+                    {/*            <ServiceCard/>*/}
+                    {/*            <ServiceCard/>*/}
+                    {/*            <ServiceCard/>*/}
+                    {/*            <ServiceCard/>*/}
+                    {/*            <ServiceCard/>*/}
 
-                            </div>
-                        </div>
-                        <ProgressBar containerId="scroll-container-2"/>
-                    </section>
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*    <ProgressBar containerId="scroll-container-2"/>*/}
+                    {/*</section>*/}
                 </article>
             </main>
             <style jsx>{`

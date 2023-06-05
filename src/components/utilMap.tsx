@@ -6,30 +6,30 @@ import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 
 
 interface IMarker {
-    lat: number,
-    long: number,
+    latitude: number,
+    longitude: number,
     name?: string
 }
 
-export default function UtilMap({edit}) {
+export default function UtilMap({edit, dvbtArr}) {
     //48.76220603701694, 30.21884818569823
     const [marker, setMarker] = useState<IMarker>({
-        lat: 48.76220603701694, long: 30.21884818569823
+        latitude: 48.76220603701694, longitude: 30.21884818569823
         // lat:48.76220603701694, long:30.21884818569823
     })
-    const dvbtArr: IMarker[] = [
-        {lat: 49.84795747305524, long: 24.036910502596022, name: "Lviv tower"},
-        {lat: 49.956321096529564, long: 24.394270653331052, name: "Хз де"},
-        {lat: 47.03442571455317, long: 28.861008978888464, name: "цигани і вино"},
-        {lat: 48.54372460927545, long: 32.23876684264849}
-    ]
+    // const dvbtArr: IMarker[] = [
+    //     {lat: 49.84795747305524, long: 24.036910502596022, name: "Lviv tower"},
+    //     {lat: 49.956321096529564, long: 24.394270653331052, name: "Хз де"},
+    //     {lat: 47.03442571455317, long: 28.861008978888464, name: "цигани і вино"},
+    //     {lat: 48.54372460927545, long: 32.23876684264849}
+    // ]
     const rad = (x): number => x * Math.PI / 180;
     const getDistance = (p1: IMarker, p2: IMarker): number => {
         const R: number = 6378137
-        const dLat = rad(p1.lat - p2.lat)
-        const dLong = rad(p1.long - p2.long)
-        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(p1.lat)) *
-            Math.cos(rad(p2.lat)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
+        const dLat = rad(p1.latitude - p2.latitude)
+        const dLong = rad(p1.longitude - p2.longitude)
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(p1.latitude)) *
+            Math.cos(rad(p2.latitude)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         const d = R * c;
         return d;
@@ -94,7 +94,7 @@ export default function UtilMap({edit}) {
     function getCurrentPosition() {
         navigator.geolocation.getCurrentPosition(
             (position)=>{
-                setMarker({lat:position.coords.latitude, long:position.coords.longitude})
+                setMarker({latitude:position.coords.latitude, longitude:position.coords.longitude})
             }, (error) => {
                 console.log('error')
                 console.error(error.message)
@@ -105,7 +105,7 @@ export default function UtilMap({edit}) {
     function MapClickHandler() {
         const map = useMapEvents({
             click(e) {
-                setMarker({lat:e.latlng.lat, long:e.latlng.lng})
+                setMarker({latitude:e.latlng.lat, longitude:e.latlng.lng})
             }
         })
         return null
@@ -115,7 +115,7 @@ export default function UtilMap({edit}) {
         <div id={"map"} className={"w-full h-full"}>
             <MapContainer
                 zoom={5}
-                center={[marker.lat, marker.long]}
+                center={[marker.latitude, marker.longitude]}
                 className={"w-full h-full"}
             >
                 <MapClickHandler />
@@ -123,11 +123,11 @@ export default function UtilMap({edit}) {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker icon={customIcon} position={[marker.lat, marker.long]} className={"w-[50px] h-[50px]"}></Marker>
-                <Marker icon={customIcon} position={[closestTower.lat, closestTower.long]}/>
+                <Marker icon={customIcon} position={[marker.latitude, marker.longitude]} className={"w-[50px] h-[50px]"}></Marker>
+                <Marker icon={customIcon} position={[closestTower.latitude, closestTower.longitude]}/>
                 <Polyline positions={[
-                    [marker.lat, marker.long],
-                    [closestTower.lat, closestTower.long]
+                    [marker.latitude, marker.longitude],
+                    [closestTower.latitude, closestTower.longitude]
                 ]} color={"red"}/>
             </MapContainer>
         </div>
