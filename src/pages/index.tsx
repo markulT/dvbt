@@ -10,6 +10,9 @@ import {MdPerson} from 'react-icons/md';
 import Navbar from "../comps/Navbar";
 import {useEffect, useState} from "react";
 import {btoa} from "buffer";
+import CounterAnimation from "@/comps/CounterAnimation";
+import {useRouter} from "next/router";
+// import CountUp from "react-countup";
 
 // Noto_Sans({
 //     weight: '400',
@@ -19,10 +22,12 @@ export default function Home() {
     const [open, setOpen] = useState<boolean>(false)
     const [img, setImg] = useState<string>()
 
+    const router = useRouter()
+
     return (
         <main className={"bg-white-bg"}>
 
-            <Navbar />
+            <Navbar/>
             <article className={""}>
                 <section className={'lg:mx-28 mx-10'}>
                     <div
@@ -111,109 +116,124 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
-                <section className="flex lg:flex-row flex-col mx-10 lg:mx-16 xl:mx-28 gap-y-10 justify-between mt-40">
-                    {/*First popup*/}
-                    <div className="bg-white-bg drop-shadow-2xl flex flex-col rounded-3xl
+                <div className={"relative"}>
+                    <Image src={'/splash.png'} alt={'bloob'} width={700} height={700}
+                           className={"absolute top-0 left-0 h-full w-auto lg:block hidden"}/>
+                    <div className={"bg-mega-gradient absolute top-0 left-0 h-full w-full block lg:hidden"}></div>
+                    <section
+                        className="flex lg:flex-row flex-col items-center mx-10 lg:mx-16 xl:mx-28 gap-y-10 justify-between pt-40">
+                        {/*First popup*/}
+                        <div className="bg-white-bg drop-shadow-2xl flex flex-col rounded-3xl
                     hover:scale-105 transition-all duration-500
                     ">
-                        <div className="relative w-auto  lg:h-60  h-40 rounded-xl overflow-hidden">
-                            <div className="rounded-3xl">
-                                <Image draggable={false} fill src="/images/mainPage/howToSection/map.jpg" layout="fill"
-                                       objectFit="cover" className={""}/>
+                            <div className="relative w-auto  lg:h-60  h-40 rounded-xl overflow-hidden">
+                                <div className="rounded-3xl">
+                                    <Image draggable={false} fill src="/images/mainPage/howToSection/map.jpg"
+                                           layout="fill"
+                                           objectFit="cover" className={""}/>
+                                </div>
+                            </div>
+                            <div className="flex flex-col my-10 mx-2 items-center">
+                                <h2 className="lg:text-3xl text-2xl font-medium text-blue-5 text-center">Визначити</h2>
+                                <a className="lg:text-xl text-lg font-regular text-blue-4 max-w-sm text-center">
+                                    вид антени яка вам потрібна відносно вашого місцезнаходження
+                                </a>
+                                <button className="bg-gradient-to-r from-blue-1 to-yellow-4 w-2/3 mt-4 rounded-xl py-3 text-2xl
+
+                            "
+                                onClick={()=>{router.push("/destination")}}>
+
+                                    Визначити
+                                </button>
                             </div>
                         </div>
-                        <div className="flex flex-col my-10 mx-2 items-center">
-                            <h2 className="lg:text-3xl text-2xl font-medium text-blue-5 text-center">Визначити</h2>
-                            <a className="lg:text-xl text-lg font-regular text-blue-4 max-w-sm text-center">
-                                вид антени яка вам потрібна відносно вашого місцезнаходження
-                            </a>
-                            <button className="bg-gradient-to-r from-blue-1 to-yellow-4 w-2/3 mt-4 rounded-xl py-3 text-2xl
 
-                            ">
-                                Визначити
-                            </button>
-                        </div>
-                    </div>
-
-                    {/*Second popup*/}
-                    <div className="bg-white-bg drop-shadow-2xl flex flex-col rounded-3xl
+                        {/*Second popup*/}
+                        <div className="bg-white-bg drop-shadow-2xl flex flex-col rounded-3xl
                     hover:scale-105 transition-all duration-500
                     ">
-                        <div className="relative w-auto lg:h-60 h-40 rounded-xl overflow-hidden">
-                            <div className="rounded-t-3xl">
-                                <Image draggable={false} fill src="/images/mainPage/howToSection/choice.jpg"
-                                       layout="fill" objectFit="cover"/>
+                            <div className="relative w-auto lg:h-60 h-40 rounded-xl overflow-hidden">
+                                <div className="rounded-t-3xl">
+                                    <Image draggable={false} fill src="/images/mainPage/howToSection/choice.jpg"
+                                           layout="fill" objectFit="cover"/>
+                                </div>
+                            </div>
+                            <div className="flex flex-col my-10 mx-2 items-center">
+                                <h2 className="lg:text-3xl text-2xl font-medium text-blue-5 text-center">Обрати</h2>
+                                <a className="lg:text-xl text-lg font-regular text-blue-4 max-w-sm text-center">
+                                    потрібний вид антени у
+                                    каталозі, та ознайомитись із цінами
+                                </a>
+                                <button className="bg-gradient-to-r from-blue-1 to-yellow-4 w-2/3 mt-4 rounded-xl py-3 text-2xl" onClick={()=>{router.push("/catalogue")}}>
+                                    Обрати
+                                </button>
                             </div>
                         </div>
-                        <div className="flex flex-col my-10 mx-2 items-center">
-                            <h2 className="lg:text-3xl text-2xl font-medium text-blue-5 text-center">Обрати</h2>
-                            <a className="lg:text-xl text-lg font-regular text-blue-4 max-w-sm text-center">
-                                потрібний вид антени у
-                                каталозі, та ознайомитись із цінами
-                            </a>
-                            <button className="bg-gradient-to-r from-blue-1 to-yellow-4 w-2/3 mt-4 rounded-xl py-3 text-2xl
 
-                            ">
-                                Обрати
-                            </button>
-                        </div>
-                    </div>
-
-                    {/*Third popup*/}
-                    <div className="bg-white-bg drop-shadow-2xl flex flex-col rounded-3xl
+                        {/*Third popup*/}
+                        <div className="bg-white-bg drop-shadow-2xl flex flex-col rounded-3xl
                     hover:scale-105 transition-all duration-500
                     ">
-                        <div className="relative w-auto lg:h-60 h-40 rounded-xl overflow-hidden">
-                            <div className="rounded-t-xl">
-                                <Image draggable={false} fill src="/images/mainPage/howToSection/sign.jpg" layout="fill"
-                                       objectFit="cover"/>
+                            <div className="relative w-auto lg:h-60 h-40 rounded-xl overflow-hidden">
+                                <div className="rounded-t-xl">
+                                    <Image draggable={false} fill src="/images/mainPage/howToSection/sign.jpg"
+                                           layout="fill"
+                                           objectFit="cover"/>
+                                </div>
+                            </div>
+                            <div className="flex flex-col my-10 mx-2 items-center ">
+                                <h2 className="lg:text-3xl text-2xl font-medium text-blue-5 text-center">Оформити</h2>
+                                <a className="lg:text-xl text-lg font-regular text-blue-4 max-w-sm text-center">
+                                    замовлення заповнивши
+                                    форму для доставки та оплати
+                                </a>
+                                <button className="bg-gradient-to-r from-blue-1 to-yellow-4 w-2/3 mt-4 rounded-xl py-3 text-2xl
+
+                            " onClick={()=>{router.push("/checkout")}}>
+                                    Оформити
+                                </button>
                             </div>
                         </div>
-                        <div className="flex flex-col my-10 mx-2 items-center ">
-                            <h2 className="lg:text-3xl text-2xl font-medium text-blue-5 text-center">Оформити</h2>
-                            <a className="lg:text-xl text-lg font-regular text-blue-4 max-w-sm text-center">
-                                замовлення заповнивши
-                                форму для доставки та оплати
-                            </a>
-                            <button className="bg-gradient-to-r from-blue-1 to-yellow-4 w-2/3 mt-4 rounded-xl py-3 text-2xl
 
-                            ">
-                                Оформити
-                            </button>
-                        </div>
-                    </div>
 
-                </section>
+                    </section>
 
-                <section
-                    className="flex mx-10 lg:mx-28 md:justify-between flex-col md:flex-row mt-40 h-screen md:h-auto">
-                    <div className="md:w-1/2 w-full h-full"> {/* Update the class here */}
-                        <div className="relative w-full h-full">
-                            <div className="w-full h-full">
-                                <Image draggable={false} src="/images/mainPage/location.png" alt="Your Image"
-                                       layout="fill" objectFit="contain"/>
+                    <section
+                        className=" mt-40 h-screen md:h-auto">
+                        <div className={"flex md:justify-between items-center flex-col lg:flex-row"}>
+                            <div className="md:w-1/2 w-full h-full relative"> {/* Update the class here */}
+                                {/*<div className="relative w-full h-full">*/}
+                                {/*    <div className="w-full h-full">*/}
+                                {/*        <Image draggable={false} src="/images/mainPage/location.png" alt="Your Image"*/}
+                                {/*               layout="fill" objectFit="contain"/>*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                <Image src={"/images/mainPage/location.png"} alt={''} width={1000} height={1000}
+                                       className={"z-50"}/>
+                            </div>
+                            <div className={'md:w-1/2 w-full my-20 flex justify-center z-50'}>
+
+                                {/* Rest of the code remains the same */}
+                                <div className="">
+                                    <h2 className="md:text-7xl text-5xl font-bold text-blue-2 max-w-lg">
+                                        Як визначити тип<span className="text-yellow-4"> антени?</span>
+                                    </h2>
+                                    <p className={'text-blue-2 md:text-xl text-lg max-w-lg'}>
+                                        Щоб визначити необхідний вам тип антени, варто просто перейти на вкладку <a
+                                        className={'text-yellow-4 font-semibold'}>“Визначити”</a>, на мапі обрати ваше
+                                        місцезнаходження. Програма все зробить за вас, та вирахує, антену якої
+                                        потужності вам варто придбати
+                                    </p>
+                                    <button
+                                        className="bg-gradient-to-r from-blue-1 to-yellow-4 mt-4 rounded-xl py-3 px-10 text-2xl hover:scale-110 transition-all duration-500"
+                                        onClick={()=>{router.push("/catalogue")}}>
+                                        Оформити
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className={'md:w-1/2 w-full my-20 flex justify-center'}>
-                        {/* Rest of the code remains the same */}
-                        <div className="">
-                            <h2 className="md:text-7xl text-5xl font-bold text-blue-2 max-w-lg">
-                                Як визначити тип<a className="text-yellow-4"> антени?</a>
-                            </h2>
-                            <p className={'text-blue-2 md:text-xl text-lg max-w-lg'}>
-                                Щоб визначити необхідний вам тип антени, варто просто перейти на вкладку <a
-                                className={'text-yellow-4 font-semibold'}>“Визначити”</a>, на мапі обрати ваше
-                                місцезнаходження. Програма все зробить за вас, та вирахує, антену якої
-                                потужності вам варто придбати
-                            </p>
-                            <button
-                                className="bg-gradient-to-r from-blue-1 to-yellow-4 mt-4 rounded-xl py-3 px-10 text-2xl hover:scale-110 transition-all duration-500">
-                                Оформити
-                            </button>
-                        </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
 
 
                 <section className={"lg:mx-28 mt-40 mx-10"}>
@@ -229,7 +249,7 @@ export default function Home() {
                                     встановлення</p>
                                 <button
                                     className={"bg-gradient-to-r from-blue-1 to-blue-2 md:py-4 py-3 px-16 rounded-xl text-lg md:text-2xl font-medium text-white drop-shadow-2xl " +
-                                        "transition-all duration-500 hover:scale-105 md:hover:translate-x-1"}>Каталог
+                                        "transition-all duration-500 hover:scale-105 md:hover:translate-x-1"}  onClick={()=>{router.push("/catalogue")}}>Каталог
                                 </button>
                             </div>
                         </div>
@@ -302,17 +322,21 @@ export default function Home() {
                     <div className={'flex w-full md:justify-evenly flex-col gap-y-4  md:flex-row'}>
                         <div className={"text-blue-5 text-center flex flex-col items-center"}>
                             <MdGroups2 className={"text-5xl"}/>
-                            <h3 className={"text-7xl font-bold"}>5000</h3>
+                            {/*<CountUp end={5000} duration={2} />*/}
+                            <CounterAnimation endValue={5000} duration={1}/>
+                            {/*<h3 className={"text-7xl font-bold"}>5000</h3>*/}
                             <p className={"text-xl text-center"}>антен</p>
                         </div>
                         <div className={"text-blue-3 text-center flex flex-col items-center"}>
                             <MdGroup className={"text-5xl"}/>
-                            <h3 className={"text-7xl font-bold"}>3000</h3>
+                            <CounterAnimation endValue={3000} duration={3}/>
+                            {/*<h3 className={"text-7xl font-bold"}>3000</h3>*/}
                             <p className={"text-xl text-center"}>антен</p>
                         </div>
                         <div className={"text-blue-1 text-center flex flex-col items-center"}>
                             <MdPerson className={"text-5xl"}/>
-                            <h3 className={"text-7xl font-bold"}>1000</h3>
+                            <CounterAnimation endValue={1000} duration={7}/>
+                            {/*<h3 className={"text-7xl font-bold"}>1000</h3>*/}
                             <p className={"text-xl text-center"}>антен</p>
                         </div>
                     </div>

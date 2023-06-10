@@ -4,7 +4,7 @@ import {
     getProductImage,
     getProductPage,
     getProductsByCategory,
-    getSingleProduct
+    getSingleProduct, searchProducts
 } from "@/store/reducers/products/productThunk";
 import {Product} from "@/store/models/Product";
 import {GetPageResponse} from "@/store/types/GetPage";
@@ -17,7 +17,8 @@ interface ProductState {
     error:string,
     length:number,
     currentImageUrl:string,
-    currentItem:Product
+    currentItem:Product,
+    searchResult:Product[]
 }
 
 const initialState:ProductState = {
@@ -27,6 +28,7 @@ const initialState:ProductState = {
     length:0,
     currentImageUrl:'',
     currentItem:null as Product,
+    searchResult:[]
 }
 
 export const productSlice = createSlice({
@@ -72,6 +74,9 @@ export const productSlice = createSlice({
         [getSingleProduct.fulfilled.type]: (state, action:PayloadAction<GetSingle<Product>>) => {
             state.currentItem = action.payload.item;
         },
+        [searchProducts.fulfilled.type]:(state, action:PayloadAction<Product[]>) => {
+            state.searchResult = action.payload;
+        }
     }
 })
 

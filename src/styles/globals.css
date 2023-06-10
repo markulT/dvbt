@@ -722,3 +722,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
   -ms-user-select: none;
   user-select: none;
 }
+
+.bg-mega-gradient {
+  background: linear-gradient(to bottom, #4576B1 0%, #65AFFF 45%, #FFF75E 70%, #ffffff 100% );
+}
+.bg_null {
+  background: none;
+}

@@ -11,7 +11,7 @@ interface IMarker {
     name?: string
 }
 
-export default function UtilMap({edit, dvbtArr}) {
+export default function UtilMap({edit, dvbtArr, callback}) {
     //48.76220603701694, 30.21884818569823
     const [marker, setMarker] = useState<IMarker>({
         latitude: 48.76220603701694, longitude: 30.21884818569823
@@ -39,13 +39,17 @@ export default function UtilMap({edit, dvbtArr}) {
 
     function findClosest(current: IMarker, arr: IMarker[]): IMarker {
         let closest: IMarker = arr[0];
+        let distance
         for (let marker of arr) {
             let d = getDistance(current, marker)
             let currentPos = getDistance(current, closest)
             if (d < currentPos) {
                 closest = marker;
+                distance = d
             }
         }
+
+        callback(getDistance(marker, closest))
         return closest
     }
 

@@ -6,21 +6,73 @@ import GradientButton from "@/comps/GradientButton";
 import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "@/store/hooks/redux";
 import {getAllTowers} from "@/store/reducers/tower/towerThunk";
+import {searchProducts} from "@/store/reducers/products/productThunk";
+// import RadioInput from "@/comps/RadioInput";
 
 const MapWithNoSsr = dynamic(() => import('@/components/utilMap'), {ssr: false})
-// aa
+const RadioInput = dynamic(() => import("@/comps/RadioInput"), {ssr: false})
+
+export enum ObstacleStatus {
+    NO,
+    FEW,
+    MANY
+}
+
+interface Obstacle {
+    title: string,
+    status: ObstacleStatus
+}
+
+export enum GeoStatus {
+    PLAINS,
+    HILLY,
+    MOUNTAINS
+}
+
+interface Geo {
+    title:string,
+    status:GeoStatus
+}
+
+
 const Determination = () => {
 
     const [edit, setEdit] = useState<boolean>(false)
     const dispatch = useAppDispatch()
-    const towerList = useAppSelector((state)=>state.tower.list)
+    const towerList = useAppSelector((state) => state.tower.list)
+    const obstacleList: Obstacle[] = [
+        {title: "Відсутні", status: ObstacleStatus.NO},
+        {title: "Малі перешкоди", status: ObstacleStatus.FEW},
+        {title: "Багато перешкод. Без прямого доступу до вежі", status: ObstacleStatus.MANY}
+    ]
+    const geoList:Geo[] = [
+        {title:"Рівнинна", status:GeoStatus.PLAINS},
+        {title:"Горбиста", status:GeoStatus.HILLY},
+        {title:"Гірська", status:GeoStatus.MOUNTAINS}
+    ]
 
-    useEffect(()=>{
+    const [obstacles, setObstacles] = useState()
+    const [geo, setGeo] = useState()
+    const [distance, setDistance] = useState(0)
+    const recommendProducts = useAppSelector((state)=>state.product.searchResult)
+
+    useEffect(() => {
         async function fetchData() {
             dispatch(getAllTowers())
         }
+
         fetchData()
     }, [])
+
+    async function findProducts() {
+        if (geo == null || obstacles == null) {
+            return
+        }
+        dispatch(searchProducts({geo:geo, obstacle:obstacles, distance:distance}))
+    }
+    function setD(d) {
+        setDistance(d)
+    }
 
     return (
         <div className={"bg-white-bg w-full h-full"}>
@@ -58,19 +110,51 @@ const Determination = () => {
                             <h2 className={"text-blue-5 font-bold text-3xl"}>
                                 Визначення
                             </h2>
-                            <div className={"flex w-[100%] px-10 h-[50vh]"}>
-                                <div className={"basis-1/2 flex flex-col items-center justify-end"}>
-                                    <span className={"text-blue-6 text-2xl"}>Тут якийсь шлак</span>
+                            <div className={"flex w-[100%] px-10 lg:h-[50vh] h-screen flex-col-reverse lg:flex-row"}>
+                                <div className={"basis-1/2 flex flex-col items-center justify-start"}>
+
+                                    <div className={"justify-self-start self-start text-blue-6"}>
+                                        <h3 className={"text-2xl font-medium"}>Чи є перешкоди на шляху до вежі ?</h3>
+                                        <div>
+                                            {obstacleList.map((obstacle) => <RadioInput key={obstacle.status}
+                                                                                        value={obstacle.status}
+                                                                                        title={obstacle.title}
+                                                                                        setValue={setObstacles}
+                                                                                        name={'obstacles'}/>)}
+                                        </div>
+                                    </div>
+
+                                    <div className={"justify-self-start self-start text-blue-6"}>
+                                        <h3 className={"text-2xl font-medium"}>Опишіть свою місцевість: </h3>
+                                        <div>
+                                            {geoList.map((geo) => <RadioInput key={geo.status}
+                                                                                        value={geo.status}
+                                                                                        title={geo.title}
+                                                                                        setValue={setGeo}
+                                                                                        name={'geo'}/>)}
+                                        </div>
+                                    </div>
+
+                                    <span className={"text-blue-6 text-2xl"}>
+                                        <h3>Distance is : {Math.floor(distance)/1000} км</h3>
+                                    </span>
+
                                     <div>
                                         <GradientButton title={"Визначити"} onClick={(e) => {
-                                            console.log('click')
                                             setEdit(prev => !prev)
                                         }
                                         }/>
+                                        <div>
+                                            <GradientButton title={"Знайти"} onClick={(e) => {
+                                                findProducts()
+                                            }
+                                            }/>
+                                        </div>
                                     </div>
+
                                 </div>
-                                <div className={'basis-1/2 grow-0'}>
-                                    <MapWithNoSsr {...{edit: edit, dvbtArr:towerList}}/>
+                                <div className={'lg:basis-1/2 grow-0 h-full'}>
+                                    <MapWithNoSsr {...{edit: edit, dvbtArr: towerList, callback:setD}}/>
                                 </div>
                             </div>
                         </div>
@@ -79,14 +163,8 @@ const Determination = () => {
                         <h2 className={"text-blue-5 font-bold text-3xl"}>
                             Ми знайшли кілька антен для вас
                         </h2>
-                        <div className={"flex justify-between gap-4 mt-[2%]"}>
-                            <ProductCard/>
-                            <ProductCard/>
-                            <ProductCard/>
-                            <ProductCard/>
-                            <ProductCard/>
-
-
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5  gap-4 justify-between mt-4">
+                            {recommendProducts?.map((product)=><ProductCard title={product.title} imgName={product.imgName} price={product.price} id={product.id?.toString()} key={product.id?.toString()} name={product.name}/>)}
                         </div>
                     </section>
                 </article>

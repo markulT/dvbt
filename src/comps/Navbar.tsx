@@ -78,8 +78,11 @@ const Navbar: FC = () => {
                             </li>
                             <div>
                                 <button
-                                    className={"bg-gradient-to-tl from-blue-3 to-blue-2 py-4 px-16 rounded-xl text-2xl font-medium text-white bg-size-200 bg-pos-0 hover:bg-pos-100 from-blue-3 to-blue-2 transition-all duration-500 hover:scale-105 drop-shadow-2xl"}>
-                                    <Link href={'/auth/login'}>Логін</Link>
+                                    className={"bg-gradient-to-tl from-blue-3 to-blue-2 py-4 px-16 rounded-xl text-2xl font-medium text-white bg-size-200 bg-pos-0 hover:bg-pos-100 from-blue-3 to-blue-2 transition-all duration-500 hover:scale-105 drop-shadow-2xl"}
+                                onClick={()=>{
+                                    router.push("/auth/login")}
+                                        }>
+                                    <span>Логін</span>
                                 </button>
                             </div>
                         </>
