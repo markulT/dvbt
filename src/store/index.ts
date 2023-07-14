@@ -5,6 +5,7 @@ import {authSlice} from "@/store/reducers/authSlice";
 import {categorySlice} from "@/store/reducers/category/categorySlice";
 import {orderSlice} from "@/store/reducers/orders/orderSlice";
 import {towerSlice} from "@/store/reducers/tower/towerSlice";
+import {bannerSlice} from "@/store/reducers/banner/bannerSlice";
 // import productReducer from "@/store/reducers/productSlice";
 
 const rootReducer = combineReducers({
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     auth: authSlice.reducer,
     category: categorySlice.reducer,
     order:orderSlice.reducer,
-    tower:towerSlice.reducer
+    tower:towerSlice.reducer,
+    banner:bannerSlice.reducer
 })
 
 export const store = configureStore({
@@ -25,7 +27,10 @@ export const authSliceActions = authSlice.actions;
 export const categorySliceActions = categorySlice.actions;
 export const orderSliceActions = orderSlice.actions;
 export const towerSliceActions = towerSlice.actions
+export const bannerSliceActions = bannerSlice.actions
 
+//@ts-ignore
 export type RootState = ReturnType<typeof rootReducer>
+//@ts-ignore
 export type AppStore = ReturnType<typeof store>
 export type AppDispatch = AppStore['dispatch']

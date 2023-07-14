@@ -8,6 +8,7 @@ import {AiOutlineArrowLeft} from "react-icons/ai";
 import Image from "next/image";
 import GradientButton from "@/comps/GradientButton";
 import {orderSliceActions} from "@/store";
+import ComplementaryField from "@/comps/ComplementaryField";
 
 
 const ProductPage: FC = () => {
@@ -18,7 +19,9 @@ const ProductPage: FC = () => {
     const product = useAppSelector((state) => state.product.currentItem)
     const imgUrl = useAppSelector((state) => state.product.currentImageUrl)
     async function fetchData() {
+        //@ts-ignore
         dispatch(getSingleProduct({id: router.query.productId?.toString()}))
+        //@ts-ignore
         dispatch(getProductImage({id: router.query.productId?.toString()}))
     }
 
@@ -75,6 +78,11 @@ const ProductPage: FC = () => {
                                 {product?.price}
                                 </span>
                                 <span className={"text-xl"}>₴</span>
+                            </div>
+                            <div className={"mt-4"}>
+                                <h2 className={"text-xl font-medium"}>Рекомендуємо придбати також :</h2>
+
+                                {product.complementary && product.complementary.map(()=><ComplementaryField title={product.title} id={product.id?.toString()} />)}
                             </div>
                             <div className={"self-center"}>
                                 <GradientButton title={"Додати в кошик"} onClick={() => {

@@ -1,7 +1,11 @@
 import Navbar from "@/comps/Navbar";
+import {ReactNode} from "react";
 
+type LayoutProps = {
+    children:ReactNode;
+}
 
-export default function Layout({children}) {
+const Layout = ({children}:LayoutProps) => {
     return (
         <>
             <Navbar />
@@ -11,3 +15,4 @@ export default function Layout({children}) {
         </>
     )
 }
+export default Layout

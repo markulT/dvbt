@@ -10,6 +10,7 @@ interface CustomInputProps {
 const CustomInput:FC<CustomInputProps> = ({ icon: FC, placeholder }) => {
     return (
         <div className="w-2/3 flex justify-end items-center bg-white relative rounded-lg">
+            {/*@ts-ignore*/}
             {icon && <BiSearch className="text-blue-5" />}
             <input
                 placeholder="Pesquisar"

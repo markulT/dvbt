@@ -18,7 +18,7 @@ interface ProductState {
     length:number,
     currentImageUrl:string,
     currentItem:Product,
-    searchResult:Product[]
+    searchResult:Product[],
 }
 
 const initialState:ProductState = {
@@ -27,6 +27,7 @@ const initialState:ProductState = {
     error:'',
     length:0,
     currentImageUrl:'',
+    //@ts-ignore
     currentItem:null as Product,
     searchResult:[]
 }
@@ -69,12 +70,14 @@ export const productSlice = createSlice({
             state.length = action.payload.length;
         },
         [getProductImage.fulfilled.type]:(state, action:PayloadAction<Blob>) => {
+            //@ts-ignore
             state.currentImageUrl = action.payload;
         },
         [getSingleProduct.fulfilled.type]: (state, action:PayloadAction<GetSingle<Product>>) => {
             state.currentItem = action.payload.item;
         },
         [searchProducts.fulfilled.type]:(state, action:PayloadAction<Product[]>) => {
+            //@ts-ignore
             state.searchResult = action.payload;
         }
     }

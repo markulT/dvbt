@@ -3,10 +3,16 @@ import ServiceCard from "@/comps/ServiceCard";
 import ProgressBar from "@/comps/ProgressBar";
 import {FC} from "react";
 import Navbar from "@/comps/Navbar";
+import Head from "next/head";
 
 const Services: FC = () => {
     return (
         <div className="bg-white-bg w-full min-h-screen">
+            <Head>
+                <title>My T2 - Посібники</title>
+                <meta name="description" content="Вивчайте як встановити та ремонтувати антени DVB-T2 разом з My T2 - провідним постачальником антен та передатчиків. Отримайте доступ до кращих туторіалів, щоб покращити якість сигналу та отримати надійне ефірне телебачення. З нашими детальними посібниками ви зможете швидко та легко встановити антену та забезпечити стабільне з'єднання з найвищою продуктивністю. Вивчайте професійні техніки та отримуйте розуміння процесу налаштування та підтримки вашої антени DVB-T2. Зробіть крок до високоякісного ефірного телебачення разом з My T2." />
+                <meta name="keywords" content="DVB-T2 антени, DVB-T2 передатчики, ефірні антени, ефірне телебачення, антени для цифрового телебачення, передатчики для ефірного телебачення"/>
+            </Head>
             <Navbar />
             <main>
                 <article>

@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "@/store/hooks/redux";
 import {getAllTowers} from "@/store/reducers/tower/towerThunk";
 import {searchProducts} from "@/store/reducers/products/productThunk";
+import Head from "next/head";
 // import RadioInput from "@/comps/RadioInput";
 
 const MapWithNoSsr = dynamic(() => import('@/components/utilMap'), {ssr: false})
@@ -70,12 +71,17 @@ const Determination = () => {
         }
         dispatch(searchProducts({geo:geo, obstacle:obstacles, distance:distance}))
     }
-    function setD(d) {
+    function setD(d:any) {
         setDistance(d)
     }
 
     return (
         <div className={"bg-white-bg w-full h-full"}>
+            <Head>
+                <title>My T2 - Локація</title>
+                <meta name="description" content="Знайдіть ідеальну антену DVB-T2 для своїх потреб разом з My T2 - вашим надійним постачальником антен та передатчиків. Використовуйте нашу унікальну сторінку підбору, щоб визначити найкращу антену, яка відповідає вашим вподобанням і особистим вимогам. Завдяки широкому асортименту антен та детальним фільтрам, ви зможете знайти ідеальне рішення для вашого регіону та отримати високоякісне ефірне телебачення. Наш інтуїтивно зрозумілий інструмент підбору допоможе вам зробити правильний вибір. Виберіть My T2 для надійної антени DVB-T2, яка задовольнить ваші потреби і надасть якісне телевізійне відтворення." />
+                <meta name="keywords" content="DVB-T2 антени, DVB-T2 передатчики, ефірні антени, ефірне телебачення, антени для цифрового телебачення, передатчики для ефірного телебачення"/>
+            </Head>
             <Navbar/>
             <main>
                 <article>
@@ -101,6 +107,7 @@ const Determination = () => {
                                 draggable={false}
                                 className={"rounded-xl"}
                                 fill
+                                alt={"Локація"}
                                 src="/images/determinationPage/location.png"
                             />
                         </div>
@@ -136,16 +143,17 @@ const Determination = () => {
                                     </div>
 
                                     <span className={"text-blue-6 text-2xl"}>
-                                        <h3>Distance is : {Math.floor(distance)/1000} км</h3>
+                                        <h3>Відстань : {Math.floor(distance)/1000} км</h3>
                                     </span>
 
                                     <div>
-                                        <GradientButton title={"Визначити"} onClick={(e) => {
+                                        {/*@ts-ignore*/}
+                                        <GradientButton title={"Виправити"} onClick={(e:any) => {
                                             setEdit(prev => !prev)
                                         }
                                         }/>
                                         <div>
-                                            <GradientButton title={"Знайти"} onClick={(e) => {
+                                            <GradientButton title={"Знайти"} onClick={(e:any) => {
                                                 findProducts()
                                             }
                                             }/>
@@ -154,6 +162,7 @@ const Determination = () => {
 
                                 </div>
                                 <div className={'lg:basis-1/2 grow-0 h-full'}>
+                                    {/*@ts-ignore*/}
                                     <MapWithNoSsr {...{edit: edit, dvbtArr: towerList, callback:setD}}/>
                                 </div>
                             </div>
@@ -164,6 +173,7 @@ const Determination = () => {
                             Ми знайшли кілька антен для вас
                         </h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5  gap-4 justify-between mt-4">
+                            {/*@ts-ignore-*/}
                             {recommendProducts?.map((product)=><ProductCard title={product.title} imgName={product.imgName} price={product.price} id={product.id?.toString()} key={product.id?.toString()} name={product.name}/>)}
                         </div>
                     </section>

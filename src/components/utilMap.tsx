@@ -3,7 +3,8 @@ import {useEffect, useState} from "react";
 import L, {polyline} from 'leaflet'
 import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
-
+import {Tower} from "@/store/models/Tower";
+import dynamic from "next/dynamic";
 
 interface IMarker {
     latitude: number,
@@ -11,7 +12,14 @@ interface IMarker {
     name?: string
 }
 
-export default function UtilMap({edit, dvbtArr, callback}) {
+
+type UtilMapProps = {
+    edit: boolean,
+    dvbtArr:IMarker[],
+    callback:Function
+}
+
+const UtilMap = ({edit, dvbtArr, callback}:UtilMapProps) => {
     //48.76220603701694, 30.21884818569823
     const [marker, setMarker] = useState<IMarker>({
         latitude: 48.76220603701694, longitude: 30.21884818569823
@@ -23,7 +31,7 @@ export default function UtilMap({edit, dvbtArr, callback}) {
     //     {lat: 47.03442571455317, long: 28.861008978888464, name: "цигани і вино"},
     //     {lat: 48.54372460927545, long: 32.23876684264849}
     // ]
-    const rad = (x): number => x * Math.PI / 180;
+    const rad = (x:number): number => x * Math.PI / 180;
     const getDistance = (p1: IMarker, p2: IMarker): number => {
         const R: number = 6378137
         const dLat = rad(p1.latitude - p2.latitude)
@@ -127,6 +135,7 @@ export default function UtilMap({edit, dvbtArr, callback}) {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+                {/*@ts-ignore*/}
                 <Marker icon={customIcon} position={[marker.latitude, marker.longitude]} className={"w-[50px] h-[50px]"}></Marker>
                 <Marker icon={customIcon} position={[closestTower.latitude, closestTower.longitude]}/>
                 <Polyline positions={[
@@ -137,3 +146,4 @@ export default function UtilMap({edit, dvbtArr, callback}) {
         </div>
     )
 }
+export default UtilMap

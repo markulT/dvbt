@@ -4,6 +4,9 @@ import Image from "next/image";
 import {useRouter} from "next/router";
 import GradientButton from "@/comps/GradientButton";
 import Link from "next/link";
+import {useDispatch} from "react-redux";
+import {useAppDispatch, useAppSelector} from "@/store/hooks/redux";
+import {signup} from "@/store/reducers/authSlice";
 
 
 const Signup:FC = () => {
@@ -14,6 +17,23 @@ const Signup:FC = () => {
     const [phone, setPhone] = useState<string>('')
 
     const router = useRouter()
+    const dispatch = useAppDispatch()
+
+    const error = useAppSelector((state)=>state.auth.error)
+
+    async function submit() {
+        if (email == '' || password == '' || fullName == '' || phone == '') {
+            return
+        }
+
+        await dispatch(signup({
+            email:email,
+            password:password,
+            fullName:fullName,
+            phone:phone
+        }))
+        router.push("/")
+    }
 
     return (
         <main className={"min-h-screen bg-white-bg"}>
@@ -36,7 +56,7 @@ const Signup:FC = () => {
                     </div>
 
                     <div className={"p-4 flex flex-col min-w-[60%]"}>
-                        <label htmlFor={"fullName"} className={"text-blue-6 text-xl font-medium mb-0.5"}>Повне ім'я</label>
+                        <label htmlFor={"fullName"} className={"text-blue-6 text-xl font-medium mb-0.5"}>Повне ім&aposя</label>
                         <input className={"drop-shadow-2xl p-2 rounded-lg text-blue-6 bg-white w-full"} id={"fullName"} placeholder={"..."} type="text" value={fullName} onChange={(e)=>{setFullName(e.target.value)} }/>
                     </div>
 
@@ -45,10 +65,12 @@ const Signup:FC = () => {
                         <input className={"drop-shadow-2xl p-2 rounded-lg text-blue-6 bg-white w-full"} id={"phone"} placeholder={"+380123456789"} type="text" value={phone} onChange={(e)=>{setPhone(e.target.value)} }/>
                     </div>
 
-                    <GradientButton title={"Логін"} />
+                    <p className={"p-4 text-red-1"}>{error}</p>
+
+                    <GradientButton title={"Зареєструватись"} onClick={submit} />
                     <div className={"flex items-center mt-4"}>
                         <span className={"text-blue-5 font-medium"}>Є акаунт ?</span>
-                        <Link href={"/auth/signup"} className={"text-yellow-4 text-lg font-medium ml-1 hover:underline"}>Увійдіть !</Link>
+                        <Link href={"/auth/login"} className={"text-yellow-4 text-lg font-medium ml-1 hover:underline"}>Увійдіть !</Link>
                     </div>
                 </div>
             </article>

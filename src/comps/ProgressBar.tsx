@@ -9,16 +9,17 @@ const ProgressBar:FC<ProgressBarProps> = ({ containerId }) => {
     const [scrollWidth, setScrollWidth] = useState(0);
     const startX = useRef()
     const scrollLeft = useRef()
-
+    //@ts-ignore
     function handleMouseMove(e, slider) {
         if(!slider.classList.contains("slider_active")) {return}
         e.preventDefault()
         const x = e.pageX - slider.offsetLeft
-
+        //@ts-ignore
         const walk = (x - startX.current) * 1
-        console.log(scrollLeft.current - walk)
+        //@ts-ignore
         slider.scrollLeft = scrollLeft.current - walk
     }
+    //@ts-ignore
     function handleMouseDown(e, slider) {
         // slider.classList.add('cursor-grabbing')
         slider.classList.add("slider_active")
@@ -26,11 +27,12 @@ const ProgressBar:FC<ProgressBarProps> = ({ containerId }) => {
         startX.current = e.pageX
         // setIsDown(true)
     }
-
+    //@ts-ignore
     function handleLeave(e, slider) {
         slider.classList.remove("slider_active")
         // setIsDown(false)
     }
+    //@ts-ignore
     function handleUp(e, slider) {
         // setIsDown(false)
         slider.classList.remove("slider_active")
@@ -44,42 +46,41 @@ const ProgressBar:FC<ProgressBarProps> = ({ containerId }) => {
         const container = document.getElementById(containerId);
 
         const handleScroll = () => {
+            //@ts-ignore
             const { scrollLeft, scrollWidth, clientWidth } = container;
             const progressWidth = ((scrollLeft + clientWidth) / scrollWidth) * 100;
             setScrollWidth(progressWidth);
         };
-
-        container.addEventListener("scroll", handleScroll);
-        container.addEventListener("mousedown", (e)=>{
+        container?.addEventListener("scroll", handleScroll);
+        container?.addEventListener("mousedown", (e)=>{
             handleMouseDown(e, container)
         })
-        container.addEventListener("mouseup", (e)=>{
+        container?.addEventListener("mouseup", (e)=>{
             handleUp(e, container)
         })
-        container.addEventListener("mousemove", (e)=>{
+        container?.addEventListener("mousemove", (e)=>{
             handleMouseMove(e, container)
         })
-        container.addEventListener("mouseleave", (e)=>{
+        container?.addEventListener("mouseleave", (e)=>{
             handleLeave(e,container)
         })
 
-
-        // Initialize scrollWidth state with the current scroll position
-        const initialProgressWidth = ((container.scrollLeft + container.clientWidth) / container.scrollWidth) * 100;
+        //@ts-ignore
+        const initialProgressWidth = ((container?.scrollLeft + container?.clientWidth) / container?.scrollWidth) * 100;
         setScrollWidth(initialProgressWidth);
 
         return () => {
-            container.removeEventListener("scroll", handleScroll);
-            container.removeEventListener("mousedown", (e)=>{
+            container?.removeEventListener("scroll", handleScroll);
+            container?.removeEventListener("mousedown", (e)=>{
                 handleMouseDown(e,container)
             })
-            container.removeEventListener("mouseup", (e)=>{
+            container?.removeEventListener("mouseup", (e)=>{
                 handleUp(e,container)
             })
-            container.removeEventListener("mousemove", (e)=>{
+            container?.removeEventListener("mousemove", (e)=>{
                 handleMouseMove(e,container)
             })
-            container.removeEventListener("mouseleave", (e)=>{
+            container?.removeEventListener("mouseleave", (e)=>{
                 handleLeave(e,container)
             })
         };

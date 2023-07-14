@@ -11,7 +11,8 @@ export interface Product {
     currentConsumption:string,
     packagement:string,
     imgName:string,
-    id?:string
+    id?:string,
+    complementary: Product[],
 }
 export interface ShortProduct {
     name:string,

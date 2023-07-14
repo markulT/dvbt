@@ -18,7 +18,7 @@ const CatalogueCategory: FC = () => {
 
     async function fetchData() {
         await dispatch(getProductsByCategory({
-            categoryId: categoryId?.toString(),
+            categoryId: categoryId?.toString() || "",
             page: {pageSize: 20, pageNumber: Number(pageNumber)}
         }))
     }
@@ -52,7 +52,7 @@ const CatalogueCategory: FC = () => {
                         </div>
                         {categoryList.map((category) => <CategoryItem onClick={() => {
                             handleCategoryClick(category)
-                        }} name={category.name} key={category.id} id={category.id?.toString()}/>)}
+                        }} name={category.name} key={category.id} id={category.id?.toString() || ""}/>)}
                     </section>
                     <section className="mx-4 sm:mx-10 md:mx-20 lg:mx-28 flex flex-col">
                         <div
@@ -60,7 +60,7 @@ const CatalogueCategory: FC = () => {
                             {productList.map((product) => {
                                 return (
 
-                                        <ProductCard id={product.id?.toString()} key={product.id} name={product.name}
+                                        <ProductCard id={product.id?.toString() || ""} key={product.id} name={product.name}
                                                      title={product.title} imgName={product.imgName}
                                                      price={product.price}/>
 

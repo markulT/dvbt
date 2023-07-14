@@ -1,26 +1,22 @@
 import ProductCard from "@/comps/ProductCard";
-import CheckoutProductCard from "@/comps/CheckoutProductCard";
-import Image from "next/image";
-import {RxCross2} from "react-icons/rx";
 import {AiOutlinePlus} from "react-icons/ai";
 import ExpandableInput from "@/comps/ExpandableInput";
-import CustomInput from "@/comps/CustomInput";
-import {RiSearchLine} from 'react-icons/ri';
 import {FC, useState} from "react";
 import Navbar from "@/comps/Navbar";
 import {useAppDispatch, useAppSelector} from "@/store/hooks/redux";
 import {FaMinus, FaPlus} from "react-icons/fa";
-import {orderSlice} from "@/store/reducers/orders/orderSlice";
 import {orderSliceActions} from "@/store";
-import {router} from "next/client";
-import {HiOutlineLocationMarker} from "react-icons/hi";
 import {intentOrder} from "@/store/reducers/orders/orderThunks";
+import CheckoutProductCard from "@/comps/CheckoutProductCard";
+import {useRouter} from "next/router";
+import Head from "next/head";
 
-const Checkout: FC = () => {
+const Checkout:FC = () => {
 
     const dispatch = useAppDispatch()
     const orderItemList = useAppSelector((state)=>state.order.createOrder.productList)
-    const [location, setLocation] = useState<string>('')
+    const [locationText, setLocationText] = useState<string>('')
+    const router = useRouter()
 
     function increaseQuantity(quantity:number, id:string) {
         dispatch(orderSliceActions.addQuantity({id:id, quantity:quantity}))
@@ -28,20 +24,29 @@ const Checkout: FC = () => {
     function decreaseQuantity(quantity:number, id:string) {
         dispatch(orderSliceActions.subtractQuantity({id:id, quantity:quantity}))
     }
-
     async function submit() {
-        if (orderItemList === [] || location === '') {
+        //@ts-ignore
+        if (orderItemList == [] || locationText === '') {
             return
         }
         const orderItemListRequest = orderItemList.map(orderItem=>{
             return {productId:orderItem.product.id?.toString(), quantity:orderItem.quantity}
         })
-        await dispatch(intentOrder({productList:orderItemListRequest, location:location}))
-        router.push('checkout/payment');
+        // @ts-ignore
+        await dispatch(intentOrder({productList:orderItemListRequest, location:locationText || ""}))
+        dispatch(orderSliceActions.clearCart())
+        router.push('checkout/status');
     }
 
+
     return (
+
         <div className="bg-white-bg min-h-screen w-full">
+            <Head>
+                <title>My T2 - Кошик</title>
+                <meta name="description" content="Зробіть своє замовлення простим і зручним на сторінці My T2 - вашого надійного постачальника антен та передатчиків DVB-T2. Заповнюйте форму замовлення згідно своїх вподобань і потреб, і додавайте бажані товари до свого кошика. Наша інтуїтивно зрозуміла система кошика дозволить вам легко переглядати та керувати своїми замовленнями перед оформленням. З My T2 ви можете бути впевнені, що ваші антени та передатчики будуть відповідати найвищим стандартам якості. Зробіть своє замовлення простим і зручним з My T2 - вашим надійним партнером у покупці антен та передатчиків DVB-T2." />
+                <meta name="keywords" content="DVB-T2 антени, DVB-T2 передатчики, ефірні антени, ефірне телебачення, антени для цифрового телебачення, передатчики для ефірного телебачення"/>
+            </Head>
             <Navbar />
             <main className="flex flex-col w-full">
                 <article>
@@ -53,38 +58,38 @@ const Checkout: FC = () => {
                                     <p className="text-blue-5 text-2xl font-medium">Кошик:</p>
                                     <div className="lg:flex lg:gap-4 items-center justify-start">
                                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex gap-4">
-                                            {/*<CheckoutProductCard/>*/}
-                                            {/*<CheckoutProductCard/>*/}
                                             {orderItemList.map((orderItem)=> {
-                                                return (
-                                                    <div key={orderItem.product.id?.toString()}>
-                                                    <ProductCard title={orderItem.product.title}
-                                                             imgName={orderItem.product.imgName}
-                                                             price={orderItem.product.price}
-                                                             id={orderItem.product.id?.toString()}
-                                                             name={orderItem.product.name}/>
-                                                        <div className={"text-blue-6 flex items-center w-full justify-around"}>
-                                                            <FaMinus className={"cursor-pointer"} onClick={()=>{
-                                                                decreaseQuantity(1, orderItem.product.id?.toString())
-                                                            }} />
-                                                            <span className={"text-2xl"}>
+                                                    return (
+                                                        <div key={orderItem.product.id?.toString()}>
+                                                            <ProductCard title={orderItem.product.title}
+                                                                         imgName={orderItem.product.imgName}
+                                                                         price={orderItem.product.price}
+                                                                         id={orderItem.product.id?.toString() || ""}
+                                                                         name={orderItem.product.name}/>
+                                                            <div className={"text-blue-6 flex items-center w-full justify-around"}>
+                                                                <FaMinus className={"cursor-pointer"} onClick={()=>{
+                                                                    //@ts-ignore
+                                                                    decreaseQuantity(1, orderItem.product.id?.toString())
+                                                                }} />
+                                                                <span className={"text-2xl"}>
                                                                 {orderItem.quantity}
                                                                 </span>
-                                                            <FaPlus className={"cursor-pointer"} onClick={()=>{
-                                                                increaseQuantity(1, orderItem.product.id?.toString())
-                                                            }} />
+                                                                <FaPlus className={"cursor-pointer"} onClick={()=>{
+                                                                    //@ts-ignore
+                                                                    increaseQuantity(1, orderItem.product.id?.toString())
+                                                                }} />
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                )
-                                            }
+                                                    )
+                                                }
                                             )}
                                         </div>
                                         <div
                                             className="flex rounded-full justify-center hover:scale-110 transition-all duration-500 mt-4 lg:mt-0">
-                                            <div
-                                                className="flex items-center justify-center p-4 bg-white drop-shadow-xl rounded-full cursor-pointer" onClick={()=>{router.push("/catalogue")}}>
-                                                <AiOutlinePlus className="text-blue-5 text-2xl"/>
-                                            </div>
+                                            <button
+                                                className="flex items-center justify-center p-4 bg-white drop-shadow-xl rounded-full cursor-pointer" onClick={()=>{router.push('/catalogue')}}>
+                                                <AiOutlinePlus className={"text-blue-6"}/>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -100,20 +105,16 @@ const Checkout: FC = () => {
 
                             <ExpandableInput label="Місто доставки" options={['Львів', 'Київ', 'Івано-Франківськ']}/>
 
-                            {/*<CustomInput icon={RiSearchLine} placeholder="Search"/>*/}
-
-                            {/*<ExpandableInput label="Тип доставки" options={['Львів', 'Київ', 'Івано-Франківськ']}/>*/}
-
                             <ExpandableInput label="Відділення/адреса" options={['Львів', 'Київ', 'Івано-Франківськ']}/>
 
                             <div className={"p-4 flex flex-col min-w-[60%]"}>
                                 <label htmlFor={"location"} className={"text-blue-6 text-xl font-medium mb-0.5"}>Локація</label>
-                                <input className={"drop-shadow-2xl p-2 rounded-lg text-blue-6 bg-white w-full"} id={"location"} placeholder={""} type="text" value={location} onChange={(e)=>{setLocation(e.target.value)} }/>
+                                <input className={"drop-shadow-2xl p-2 rounded-lg text-blue-6 bg-white w-full"} id={"location"} placeholder={""} type="text" value={locationText || ""} onChange={(e)=>{setLocationText(e.target.value)} }/>
                             </div>
 
                             <button
-                                className={"bg-gradient-to-r from-blue-1 to-yellow-4 rounded-md m-3 hover:scale-105 transition-all duration-500"} onClick={submit}>
-                                Оплатити покупку
+                                className={"bg-gradient-to-r text-2xl from-blue-1 to-yellow-4 rounded-md m-3 hover:scale-105 transition-all duration-500"} onClick={submit}>
+                                Замовити
                             </button>
 
 

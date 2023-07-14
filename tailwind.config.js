@@ -38,6 +38,7 @@ module.exports = {
       'yellow-2': '#FFE246',
       'yellow-1': '#FFF75E',
       'white': '#ffffff',
+      'red-1':'#ff0000',
       'black-rgba':'rgba(0,0,0,0.90)'
     },
   },

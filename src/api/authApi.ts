@@ -2,9 +2,10 @@ import axios from "axios";
 
 // export const serverUrl = "http://localhost:8000"
 
+// @ts-ignore
 const api = axios.create({
     withCredentials: true,
-    baseUrl: '',
+    baseURL: '',
 })
 
 

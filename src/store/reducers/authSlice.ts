@@ -29,6 +29,23 @@ export const login = createAsyncThunk<any,any,any>('auth/login', async ({email, 
     sessionStorage.setItem('accessToken', response.data.accessToken)
     return response.data;
 })
+
+interface SignupRequest {
+    email:string,
+    password:string,
+    phone:string,
+    fullName:string
+}
+
+export const signup = createAsyncThunk<any,any,any>('auth/signup', async(body:SignupRequest, {rejectWithValue}) => {
+    const response = await axios.post(`${process.env.SERVER_URL}/api/v1/auth/register`, body , {withCredentials:true})
+    sessionStorage.setItem('accessToken', response.data.accessToken)
+    if (response.status == 409) {
+        return rejectWithValue("Ця пошта уже зайнята")
+    }
+    return response.data
+})
+
 export const refresh = createAsyncThunk<any,any,any>('auth/refresh',async ()=>{
 
     const response = await axios.post(`${process.env.SERVER_URL}/api/v1/auth/refresh`, {}, {withCredentials:true})
@@ -54,6 +71,12 @@ export const authSlice = createSlice({
         },
         [refresh.fulfilled.type]:(state, action:PayloadAction<ILoginResponse>) => {
             state.email = action.payload.email
+        },
+        [signup.fulfilled.type]: (state, action:PayloadAction<ILoginResponse>) => {
+            state.email = action.payload.email
+        },
+        [signup.rejected.type]: (state, action) => {
+            state.error = action.payload
         }
     }
 })
