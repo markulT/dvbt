@@ -6,6 +6,16 @@ import axios from "axios";
 const api = axios.create({
     withCredentials: true,
     baseURL: '',
+    headers:{
+        'ngrok-skip-browser-warning':true
+    }
+})
+//@ts-ignore
+export const ngrokInstance = axios.create({
+    baseURL: '',
+    headers:{
+        'ngrok-skip-browser-warning':true
+    }
 })
 
 

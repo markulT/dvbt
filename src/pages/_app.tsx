@@ -4,7 +4,6 @@ import {Provider} from "react-redux";
 import {store} from "@/store";
 import {useRouter} from "next/router";
 import {useEffect} from "react";
-import {Head} from "next/document";
 
 //@ts-ignore
 export default function App({Component, pageProps}) {

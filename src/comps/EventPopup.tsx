@@ -17,7 +17,9 @@ const EventPopup: FC = () => {
 
     async function fetchData() {
         await dispatch(getRecentBanner())
-        await dispatch(getBannerImage({imgName: banner.imgName}))
+        if (banner.imgName) {
+            await dispatch(getBannerImage({imgName: banner.imgName}))
+        }
     }
 
     const [removed, setRemoved] = useState<boolean>(Boolean(Cookies.get("banner")))
@@ -25,6 +27,9 @@ const EventPopup: FC = () => {
     useEffect(() => {
         fetchData()
     }, [])
+    useEffect(() => {
+        fetchData()
+    }, [banner])
 
     return (
         <div className={`flex items-center bg-black-rgba justify-center w-full min-h-screen fixed top-0 left-0 z-[9999999999] ${removed ? "hidden" : "flex"}`}
@@ -57,7 +62,7 @@ const EventPopup: FC = () => {
                         <p className={"text-lg text-blue-6"}>{banner.content}</p>
                         <GradientButton title={"Детальніше"} onClick={()=>{
                             // router.push(banner.detailsLink)
-                            console.log(removed)
+                            console.log(imgUrl)
                         }} />
                     </div>
                 </div>

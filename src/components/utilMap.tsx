@@ -32,7 +32,7 @@ const UtilMap = ({edit, dvbtArr, callback}:UtilMapProps) => {
     //     {lat: 48.54372460927545, long: 32.23876684264849}
     // ]
     const rad = (x:number): number => x * Math.PI / 180;
-    const getDistance = (p1: IMarker, p2: IMarker): number => {
+    const getDistance = (p1: IMarker, p2: IMarker = {latitude:0, longitude:0 , name:"marker"}): number => {
         const R: number = 6378137
         const dLat = rad(p1.latitude - p2.latitude)
         const dLong = rad(p1.longitude - p2.longitude)
@@ -61,7 +61,7 @@ const UtilMap = ({edit, dvbtArr, callback}:UtilMapProps) => {
         return closest
     }
 
-    const closestTower = findClosest(marker, dvbtArr)
+    const closestTower = findClosest(marker, dvbtArr) || {latitude:0, longitude:0}
     const customIcon = L.icon({
         iconUrl: 'marker-icon.png',
         iconSize: [30, 30]

@@ -81,8 +81,8 @@ const ProductPage: FC = () => {
                             </div>
                             <div className={"mt-4"}>
                                 <h2 className={"text-xl font-medium"}>Рекомендуємо придбати також :</h2>
-
-                                {product.complementary && product.complementary.map(()=><ComplementaryField title={product.title} id={product.id?.toString()} />)}
+                                {/*@ts-ignore*/}
+                                {product?.complementary && product?.complementary?.map(()=><ComplementaryField key={product.id?.toString()} title={product.title} id={product.id?.toString()} />)}
                             </div>
                             <div className={"self-center"}>
                                 <GradientButton title={"Додати в кошик"} onClick={() => {

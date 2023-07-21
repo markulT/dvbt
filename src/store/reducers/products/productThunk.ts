@@ -1,6 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {Product, ShortProduct} from "@/store/models/Product";
-import api from "@/api/authApi";
+import api, {ngrokInstance} from "@/api/authApi";
 import {GetByIdRequest} from "@/store/types/getByIdRequest";
 import {UpdateItem} from "@/store/types/updateItem";
 import {GetPageRequest} from "@/store/types/GetPage";
@@ -30,15 +30,24 @@ export const getSingleProduct = createAsyncThunk('product/get', async (body:GetB
 })
 
 export const getProductPage = createAsyncThunk('product/page', async (body:GetPageRequest)=>{
-    const response = await axios.get(`${process.env.SERVER_URL}/api/v1/products/page?pageSize=${body.pageSize}&pageNumber=${body.pageNumber}`)
+    //@ts-ignore
+    const response = await ngrokInstance.get(`${process.env.SERVER_URL}/api/v1/products/page?pageSize=${body.pageSize}&pageNumber=${body.pageNumber}`, {
+        headers:{
+            'ngrok-skip-browser-warning':true
+        }
+    })
     console.log(response.data)
     return response.data
 })
 
 
 export const getProductsByCategory = createAsyncThunk('product/getByCategory', async (body:GetByCategoryPage) => {
-
-    const response = await axios.get(`${process.env.SERVER_URL}/api/v1/products/products/${body.categoryId}?pageNumber=${body.page.pageNumber}&pageSize=${body.page.pageSize}`)
+    //@ts-ignore
+    const response = await ngrokInstance.get(`${process.env.SERVER_URL}/api/v1/products/products/${body.categoryId}?pageNumber=${body.page.pageNumber}&pageSize=${body.page.pageSize}`, {
+        headers:{
+            'ngrok-skip-browser-warning':true
+        }
+    })
     return response.data;
 })
 
@@ -81,6 +90,6 @@ interface SearchParams {
 }
 
 export const searchProducts = createAsyncThunk("product/search", async (body:SearchParams)=>{
-    const response = await axios.get(`${process.env.SERVER_URL}/api/v1/products/search?distance=${Math.floor(body.distance)}&geo=${body.geo}&obstacle=${body.obstacle}`)
+    const response = await ngrokInstance.get(`${process.env.SERVER_URL}/api/v1/products/search?distance=${Math.floor(body.distance)}&geo=${body.geo}&obstacle=${body.obstacle}`)
     return response.data
 })

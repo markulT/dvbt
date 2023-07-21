@@ -1,11 +1,10 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {GetPageRequest} from "@/store/types/GetPage";
-import api from "@/api/authApi";
+import api, {ngrokInstance} from "@/api/authApi";
 import {Banner} from "@/store/models/Banner";
 import {GetByIdRequest} from "@/store/types/getByIdRequest";
 import axios from "axios";
 import {UpdateItem} from "@/store/types/updateItem";
-
 
 export const getBannerPage = createAsyncThunk("banner/page", async (body:GetPageRequest)=>{
     const response = await api.get(`${process.env.SERVER_URL}/api/v1/banner/page?pageNumber=${body.pageNumber}&pageSize=${body.pageSize}`)
@@ -20,13 +19,15 @@ interface BannerImage {
 }
 
 export const getBannerImage = createAsyncThunk("banner/getImage", async (body:BannerImage)=> {
-    const response = await axios.get(`${process.env.SERVER_URL}/api/v1/banner/image/${body.imgName}`, {responseType:"blob"})
+    console.log('getting image')
+    const response = await ngrokInstance.get(`${process.env.SERVER_URL}/api/v1/banner/image/${body.imgName}`, {responseType:"blob"})
     const imgUrl = URL.createObjectURL(response.data)
+    console.log('url is : ' + imgUrl)
     return imgUrl
 })
 
 export const getRecentBanner = createAsyncThunk("banner/recentBanner", async(body)=>{
-    const response = await axios.get(`${process.env.SERVER_URL}/api/v1/banner/last`)
+    const response = await ngrokInstance.get(`${process.env.SERVER_URL}/api/v1/banner/last`)
     return response.data;
 })
 

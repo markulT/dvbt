@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import api from "@/api/authApi";
+import api, {ngrokInstance} from "@/api/authApi";
 import {GetPageRequest} from "@/store/types/GetPage";
 import {GetByIdRequest} from "@/store/types/getByIdRequest";
 import authApi from "@/api/authApi";

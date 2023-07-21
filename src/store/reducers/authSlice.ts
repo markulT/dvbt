@@ -25,7 +25,7 @@ const initialState:IAuthState = {
 
 export const login = createAsyncThunk<any,any,any>('auth/login', async ({email, password}) => {
 
-    const response = await axios.post<ILoginResponse>(`http://localhost:8000/api/v1/auth/login`, {email:email, password:password}, {withCredentials:true})
+    const response = await axios.post<ILoginResponse>(`https://4bf7-46-219-225-74.ngrok-free.app/api/v1/auth/login`, {email:email, password:password}, {withCredentials:true})
     sessionStorage.setItem('accessToken', response.data.accessToken)
     return response.data;
 })
