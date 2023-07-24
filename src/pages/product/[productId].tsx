@@ -40,56 +40,64 @@ const ProductPage: FC = () => {
     return (
         <div className={"bg-white-bg min-h-screen w-full"}>
             <Navbar/>
-            <main>
-                <AiOutlineArrowLeft className={"text-blue-6 mb-4 text-3xl mx-8 cursor-pointer"} onClick={() => {
+            <main className={"lg:mx-48 md:mx-28 mx-8"}>
+                <AiOutlineArrowLeft className={"text-blue-6 mb-4 text-3xl cursor-pointer"} onClick={() => {
                     router.back()
                 }}/>
-                <article>
+                <article className={""}>
 
-                    <div className={"w-full h-full flex mx-4 items-stretch"}>
-                        <div className="relative pb-pageAspect basis-1/2 shadow-blue-6">
-                            <Image
-                                draggable={false}
-                                className="rounded-xl"
-                                layout={'fill'}
-                                objectFit={'cover'}
-                                src={imgUrl}
-                                alt="productImage"
-                            />
-                        </div>
-
-                        <div className={"basis-1/2 pl-4 flex flex-col text-blue-6"}>
-                            <h1 className={"text-4xl font-medium"}>{product?.title}</h1>
-
-                            <h2 className={"text-3xl font-medium mt-4"}>Характеристики:</h2>
-                            <div className={"flex flex-wrap w-full font-medium text-xl"}>
-                                <span className={"basis-1/2"}>Довжина: {product?.length} см</span>
-                                <span className={"basis-1/2"}>Вхідна імпеданція: {product?.outputImpedance} Ohm</span>
-                                <span className={"basis-1/2"}>Канал дії: {product?.chanel} Ohm</span>
-                                <span className={"basis-1/2"}>Розхід точок: {product?.amplification} </span>
-                                <span className={"basis-1/2"}>Підсилення: {product?.currentConsumption} </span>
-                                <span className={"basis-1/2"}>Упаковка: {product?.packagement} </span>
+                    <div className={"w-full h-full flex flex-col items-stretch"}>
+                        <section className={"lg:grid lg:grid-cols-2 flex flex-col lg:h-fit h-full w-full gap-4"}>
+                            <div className={"row-span-2 lg:h-full h-fit bg-white shadow-blue-6 drop-shadow-2xl lg:p-4 p-3 rounded-xl"}>
+                                <div className="relative w-full py-36 lg:py-0 h-auto lg:h-full shadow-blue-6">
+                                    <Image
+                                        draggable={false}
+                                        className="rounded-xl"
+                                        layout={'fill'}
+                                        objectFit={'cover'}
+                                        src={imgUrl}
+                                        alt="productImage"
+                                    />
+                                </div>
                             </div>
-                            <h2 className={"text-3xl font-medium mt-4"}>Опис:</h2>
-                            <p className={"text-blue-6"}>{product?.description}</p>
-                            <h2 className={"text-3xl font-medium mt-4"}>Ціна:</h2>
-                            <div className={"text-blue-6"}>
-                                <span className={"text-3xl font-medium"}>
+                            <div className={"bg-white shadow-blue-6 drop-shadow-2xl lg:p-4 p-3 rounded-xl text-blue-6"}>
+                                <h1 className={"text-blue-5 lg:text-3xl text-xl font-bold"}>{product?.title}</h1>
+                                {/*<h2 className={"text-3xl font-bold mt-4"}>Ціна:</h2>*/}
+                                <div className={"text-blue-6 lg:mt-8 mt-4"}>
+                                <span className={"lg:text-3xl text-2xl font-bold"}>
                                 {product?.price}
                                 </span>
-                                <span className={"text-xl"}>₴</span>
+                                    <span className={"lg:text-3xl text-xl font-semibold"}>₴</span>
+                                </div>
+                                {/*<div className={"self-center"}>*/}
+                                {/*    <GradientButton title={"Додати в кошик"} onClick={() => {*/}
+                                {/*        addToCart()*/}
+                                {/*    }}/>*/}
+                                {/*</div>*/}
+                                <button className={"px-8 w-full py-2 md:py-3 mt-4 bg-gradient-to-l from-yellow-4 to-blue-1 text-white rounded-lg md:text-2xl duration-500 transition-all hover:from-blue-1 hover:to-yellow-4 hover:bg-gradient-to-r"}
+                                        onClick={() => {
+                                            addToCart()
+                                        }}>Додати в кошик</button>
                             </div>
-                            <div className={"mt-4"}>
-                                <h2 className={"text-xl font-medium"}>Рекомендуємо придбати також :</h2>
+                            <div className={"bg-white shadow-blue-6 drop-shadow-2xl lg:p-4 p-3 rounded-xl text-blue-6"}>
+                                <h2 className={"lg:text-3xl text-xl font-bold mt-4"}>Опис:</h2>
+                                <p className={"text-blue-6 text-md lg:text-lg"}>{product?.description}</p>
+                                <h2 className={"lg:text-3xl text-xl font-bold mt-4"}>Характеристики:</h2>
+                                <div className={"flex flex-col w-full font-medium lg:text-xl text-md"}>
+                                    <span className={"basis-1/2"}>Довжина: {product?.length} см</span>
+                                    <span className={"basis-1/2"}>Вхідна імпеданція: {product?.outputImpedance} Ohm</span>
+                                    <span className={"basis-1/2"}>Канал дії: {product?.chanel} Ohm</span>
+                                    <span className={"basis-1/2"}>Розхід точок: {product?.amplification} </span>
+                                    <span className={"basis-1/2"}>Підсилення: {product?.currentConsumption} </span>
+                                    <span className={"basis-1/2"}>Упаковка: {product?.packagement} </span>
+                                </div>
+                            </div>
+                            <div className={"col-span-2 bg-white shadow-blue-6 drop-shadow-2xl lg:p-4 p-3 rounded-xl text-blue-5 mb-8"}>
+                                <h2 className={"lg:text-xl text-lg font-bold"}>Рекомендуємо придбати також :</h2>
                                 {/*@ts-ignore*/}
                                 {product?.complementary && product?.complementary?.map(()=><ComplementaryField key={product.id?.toString()} title={product.title} id={product.id?.toString()} />)}
                             </div>
-                            <div className={"self-center"}>
-                                <GradientButton title={"Додати в кошик"} onClick={() => {
-                                    addToCart()
-                                }}/>
-                            </div>
-                        </div>
+                        </section>
 
                     </div>
 

@@ -42,7 +42,7 @@ const CatalogueCategory: FC = () => {
             <main>
                 <article>
                     <section className={"flex mx-4 sm:mx-10 md:mx-20 lg:mx-28 gap-x-3"}>
-                        <div className={"rounded-xl bg-blue-2 flex items-center justify-items-center cursor-pointer"}
+                        <div className={"rounded-xl px-4 bg-blue-4 hover:bg-blue-5 transition-all duration-500 flex items-center justify-items-center cursor-pointer"}
                              onClick={() => {
                                  router.push('/catalogue')
                              }}>

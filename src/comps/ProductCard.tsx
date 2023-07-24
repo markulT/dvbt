@@ -50,7 +50,7 @@ const ProductCard: FC<ProcutCardProps> = ({title, imgName, name, price, id}) => 
                     />
                 </div>
 
-                <h3 className="text-md text-blue-5 font-medium mt-[10%] max-w-lg">
+                <h3 className="text-xl font-bold text-blue-5 font-medium mt-[5%] max-w-lg">
                     {title}
                 </h3>
                 <div className="mt-[5%]">

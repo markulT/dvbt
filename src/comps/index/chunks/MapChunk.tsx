@@ -6,13 +6,13 @@ import CounterAnimation from "@/comps/CounterAnimation";
 
 const MapChunk:FC = () => {
     return (
-        <section className={'flex flex-col items-center mt-28 h-screen lg:mx-28 '}>
+        <section className={'flex flex-col items-center mt-28 md:h-screen h-screen lg:mx-28 '}>
             <div className={'mb-4 mx-10'}>
                 <h2 className={"md:text-3xl text-xl text-blue-5 max-w-xl text-center font-medium"}>Діяльність
-                    назва компанії на території України</h2>
+                    My T2 на території України</h2>
             </div>
-            <div className="relative w-full h-full transition-all duration-500">
-                <div className="w-full h-full">
+            <div className="relative w-full h-1/3 md:h-full transition-all duration-500">
+                <div className="relative w-full h-full">
                     <Image draggable={false} src="/images/mainPage/map2.0min.png" alt="Your Image" layout="fill"
                            loading={"lazy"}
                            objectFit="contain" className={"rounded-2xl"}/>

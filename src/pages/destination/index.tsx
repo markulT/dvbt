@@ -146,18 +146,26 @@ const Determination = () => {
                                         <h3>Відстань : {Math.floor(distance)/1000} км</h3>
                                     </span>
 
-                                    <div>
+                                    <div className={"flex w-full flex-col"}>
                                         {/*@ts-ignore*/}
-                                        <GradientButton title={"Виправити"} onClick={(e:any) => {
-                                            setEdit(prev => !prev)
-                                        }
-                                        }/>
-                                        <div>
-                                            <GradientButton title={"Знайти"} onClick={(e:any) => {
-                                                findProducts()
-                                            }
-                                            }/>
-                                        </div>
+                                        {/*<GradientButton title={"Виправити"} onClick={(e:any) => {*/}
+                                        {/*    setEdit(prev => !prev)*/}
+                                        {/*}*/}
+                                        {/*}/>*/}
+                                        <button className={"px-8 self-center lg:w-2/3 w-full py-2 md:py-3 mt-4 bg-gradient-to-l from-yellow-4 to-blue-1 text-white rounded-lg md:text-2xl duration-500 transition-all hover:from-blue-1 hover:to-yellow-4 hover:bg-gradient-to-r"}
+                                                onClick={(e:any) => {
+                                                    setEdit(prev => !prev)
+                                                }}
+                                        >Виправити</button>
+                                            <button className={"px-8 self-center lg:w-2/3 w-full py-2 md:py-3 mt-4 bg-gradient-to-l from-yellow-4 to-blue-1 text-white rounded-lg md:text-2xl duration-500 transition-all hover:from-blue-1 hover:to-yellow-4 hover:bg-gradient-to-r"}
+                                                    onClick={(e:any) => {
+                                                        findProducts()
+                                                    }}
+                                            >Знайти</button>
+                                            {/*<GradientButton title={"Знайти"} onClick={(e:any) => {*/}
+                                            {/*    findProducts()*/}
+                                            {/*}*/}
+                                            {/*}/>*/}
                                     </div>
 
                                 </div>
@@ -168,7 +176,7 @@ const Determination = () => {
                             </div>
                         </div>
                     </section>
-                    <section className={"mx-28 mt-[5%] pb-[5%] flex items-center flex-col "}>
+                    <section className={"md:mx-28 mx-4 mt-[5%] pb-[5%] flex items-center flex-col "}>
                         <h2 className={"text-blue-5 font-bold text-3xl"}>
                             Ми знайшли кілька антен для вас
                         </h2>

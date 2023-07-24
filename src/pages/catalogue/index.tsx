@@ -41,22 +41,23 @@ const Catalogue = () => {
             </Head>
             <Navbar />
             <main>
-                <EventPopup />
+                {/*<EventPopup />*/}
                 <article>
-                    <section className={"flex mx-4 sm:mx-10 md:mx-20 lg:mx-28 gap-x-3"}>
-                        <div className={"rounded-xl bg-blue-2 flex items-center justify-items-center cursor-pointer"} onClick={()=>{
-                            router.push('/catalogue')
+                    <section className={"flex mx-4 sm:mx-10 md:mx-20 lg:mx-28 gap-x-3 overflow-x-scroll hide-scroll-bar"}>
+                        <div className={"rounded-xl px-4 bg-blue-4 hover:bg-blue-5 transition-all duration-500 flex items-center justify-items-center cursor-pointer"} onClick={()=>{
+                            router.push('/catalogue');
                         }}>
-                            <span className={"text-white text-xl p-3"}>
-                                Всі
-                            </span>
+                        <span className={"text-white text-xl p-3"}>
+                          Всі
+                        </span>
                         </div>
                         {categoryList.map((category)=><CategoryItem onClick={()=>{
-                            handleCategoryClick(category)
+                            handleCategoryClick(category);
                         }} name={category.name} key={category.id} id={category.id?.toString() || ""}/>)}
                     </section>
+
                     <section className="mx-4 sm:mx-10 md:mx-20 lg:mx-28 flex flex-col">
-                        <h1 className="text-4xl text-blue-5 font-semibold">Каталог зовнішніх антен</h1>
+                        <h1 className="mt-4 lg:mt-0 text-4xl text-blue-5 font-semibold">Каталог зовнішніх антен</h1>
                         <div
                             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5  gap-4 justify-between mt-4">
                             {productList.map((product)=><ProductCard id={product.id?.toString() || ""} key={product.id} name={product.name} title={product.title} imgName={product.imgName} price={product.price} />)}
@@ -69,6 +70,16 @@ const Catalogue = () => {
 
                 </article>
             </main>
+            <style jsx>{`
+              .hide-scroll-bar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+              }
+
+              .hide-scroll-bar::-webkit-scrollbar {
+                display: none;
+              }
+            `}</style>
         </div>
     );
 }

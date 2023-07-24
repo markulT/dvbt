@@ -60,7 +60,7 @@ const CounterAnimation:FC<CounterProps> = ({endValue, duration}) => {
 
     return (
         <div ref={counter}>
-            <h3 className={"text-7xl font-bold"}>{count.toFixed(0)}</h3>
+            <h3 className={"md:text-7xl text-5xl font-bold"}>{count.toFixed(0)}</h3>
         </div>
     )
 }

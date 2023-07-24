@@ -15,6 +15,8 @@ import {useRouter} from "next/router";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Head from "next/head";
+import EventPopup from "@/comps/EventPopup";
+import HomeBanner from "@/comps/HomeBanner";
 
 // import CountUp from "react-countup";
 // Noto_Sans({
@@ -47,34 +49,35 @@ export default function Home() {
             </Head>
             <Navbar/>
             <article className={""}>
-                <section className={'lg:mx-28 mx-10'}>
-                    <div
-                        className={"bg-gradient-to-r from-blue-5 to-blue-3 rounded-xl relative flex lg:flex-row justify-between"}>
-                        <div className={"p-5 flex flex-col justify-center mx-4 lg:mx-10 w-full lg:my-28 my-10"}>
-                            <h1 className={"text-white lg:text-6xl text-4xl font-semibold whitespace-normal max-w-xl"}>Новітні
-                                телевізійні антени</h1>
-                            <p className={"lg:text-2xl text-lg font-normal whitespace-normal max-w-lg mt-4"}>Тут
-                                потрібно написати мінімальний опис всіх цих антен, чому вони круті. Чому я маю купити
-                                саме їх і докази того, що вони не випромінюють 5G</p>
-                        </div>
-                        <div className="hidden lg:block w-2/3">
-                            <div className="relative w-full h-full">
-                                <Image
-                                    layout="fill"
-                                    objectFit="cover"
-                                    draggable={false}
-                                    fill
-                                    alt={"Антенна"}
-                                    src="/images/mainPage/antennamin.jpg"
-                                    priority={true}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <HomeBanner/>
+                {/*<section className={'lg:mx-28 mx-10'}>*/}
+                {/*    <div*/}
+                {/*        className={"bg-gradient-to-r from-blue-5 to-blue-3 rounded-xl relative flex lg:flex-row justify-between"}>*/}
+                {/*        <div className={"p-5 flex flex-col justify-center mx-4 lg:mx-10 w-full lg:my-28 my-10"}>*/}
+                {/*            <h1 className={"text-white lg:text-6xl text-4xl font-semibold whitespace-normal max-w-xl"}>Новітні*/}
+                {/*                телевізійні антени</h1>*/}
+                {/*            <p className={"lg:text-2xl text-lg font-normal whitespace-normal max-w-lg mt-4"}>Тут*/}
+                {/*                потрібно написати мінімальний опис всіх цих антен, чому вони круті. Чому я маю купити*/}
+                {/*                саме їх і докази того, що вони не випромінюють 5G</p>*/}
+                {/*        </div>*/}
+                {/*        <div className="hidden lg:block w-2/3">*/}
+                {/*            <div className="relative w-full h-full">*/}
+                {/*                <Image*/}
+                {/*                    layout="fill"*/}
+                {/*                    objectFit="cover"*/}
+                {/*                    draggable={false}*/}
+                {/*                    fill*/}
+                {/*                    alt={"Антенна"}*/}
+                {/*                    src="/images/mainPage/antennamin.jpg"*/}
+                {/*                    priority={true}*/}
+                {/*                />*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</section>*/}
 
                 <section className={'mt-20 '}>
-                    <div className={'flex h-screen md:h-screen justify-end'}>
+                    <div className={'flex h-fit md:h-screen justify-end'}>
                         <div className={"w-full h-full brightness-50 absolute"}>
                             <Image
                                 draggable={false}
@@ -91,10 +94,10 @@ export default function Home() {
                             <p className={"text-white md:text-2xl text-lg font-medium text-right max-w-2xl z-10"}>
                                 Переваги
                             </p>
-                            <h2 className={"text-white text-4xl sm:text-5xl md:text-7xl font-semibold text-right z-10"}>
+                            <h2 className={"mt-8 lg:mt-0 text-white text-4xl sm:text-5xl md:text-7xl font-semibold text-right z-10"}>
                                 Створено для <br/>комфорту
                             </h2>
-                            <div className={"grid grid-cols-2 grid-rows-2 gap-2 justify-between z-10 h-1/3 lg:h-1/2"}>
+                            <div className={"mt-8 lg:mt-0 grid grid-cols-2 grid-rows-2 gap-2 justify-between z-10 h-fit lg:h-1/2"}>
 
                                 <div className={'flex flex-col'}>
                                     <div className={"flex text-md sm:text-xl md:text-3xl items-center gap-1"}>
@@ -241,8 +244,8 @@ export default function Home() {
                             <div className={'md:w-1/2 w-full my-20 flex justify-center z-50'}>
 
                                 {/* Rest of the code remains the same */}
-                                <div className="">
-                                    <h2 className="md:text-7xl text-5xl font-bold text-blue-2 max-w-lg">
+                                <div className="mx-8 md:mx-0">
+                                    <h2 className="md:text-7xl text-4xl font-bold text-blue-2 max-w-lg">
                                         Як визначити тип<span className="text-yellow-4"> антени?</span>
                                     </h2>
                                     <p className={'text-blue-2 md:text-xl text-lg max-w-lg'}>

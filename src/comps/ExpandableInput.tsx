@@ -8,7 +8,7 @@ interface ExpandableInput {
 
 const ExpandableInput:FC<ExpandableInput> = ({ label, options }) => {
     return (
-        <div className="w-full flex flex-col px-3 mb-6 md:mb-0">
+        <div className="w-full flex flex-col mb-6 md:mb-0">
 
             <label className="tracking-wide text-blue-5 text-xs font-bold mb-2" htmlFor="grid-state">
                 {label}

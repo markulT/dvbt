@@ -40,6 +40,17 @@ export const orderSlice = createSlice({
         addToCartAction(state, action:PayloadAction<Product>) {
             state.createOrder.productList.push({product:action.payload, quantity:1});
         },
+        removeFromCartAction(state, action: PayloadAction<Product>) {
+            const productIdToRemove = action.payload.id;
+            const indexToRemove = state.createOrder.productList.findIndex(
+                (item) => item.product.id === productIdToRemove
+            );
+
+            if (indexToRemove !== -1) {
+                state.createOrder.productList.splice(indexToRemove, 1);
+            }
+        },
+
         addQuantity(state, action:PayloadAction<EditProductQuantity>) {
             let productToEdit = state.createOrder.productList.find(orderItem=>orderItem.product.id === action.payload.id)
             //@ts-ignore

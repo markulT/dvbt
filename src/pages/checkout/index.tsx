@@ -51,7 +51,7 @@ const Checkout:FC = () => {
             <main className="flex flex-col w-full">
                 <article>
                     <section className="mx-4 sm:mx-10 md:mx-20 lg:mx-28 flex flex-col">
-                        <h1 className="text-4xl text-blue-5 font-bold">Каталог зовнішніх антен</h1>
+                        <h1 className="lg:text-4xl text-2xl text-blue-5 font-bold">Каталог зовнішніх антен</h1>
                         <div className="w-full p-3 bg-white drop-shadow-2xl rounded-xl mt-4">
                             <div className="flex justify-center flex-col lg:flex-row lg:justify-between">
                                 <div className="flex flex-col items-center lg:items-start">
@@ -66,7 +66,7 @@ const Checkout:FC = () => {
                                                                          price={orderItem.product.price}
                                                                          id={orderItem.product.id?.toString() || ""}
                                                                          name={orderItem.product.name}/>
-                                                            <div className={"text-blue-6 flex items-center w-full justify-around"}>
+                                                            <div className={"text-blue-6 flex items-center w-full justify-around mt-4 lg:mt-0"}>
                                                                 <FaMinus className={"cursor-pointer"} onClick={()=>{
                                                                     //@ts-ignore
                                                                     decreaseQuantity(1, orderItem.product.id?.toString())
@@ -100,20 +100,20 @@ const Checkout:FC = () => {
                         </div>
                     </section>
                     <section className="mx-4 sm:mx-10 md:mx-20 lg:mx-28 mt-10">
-                        <h1 className="text-4xl text-blue-5 font-bold">Доставка та оплата</h1>
-                        <div className="grid grid-cols-3 grid-rows-3 gap-4 gap-x-60">
+                        <h1 className="lg:text-4xl text-2xl text-blue-5 font-bold">Доставка та оплата</h1>
+                        <div className="mt-4 grid lg:grid-cols-3 lg:grid-rows-3 gap-4 lg:gap-x-60">
 
                             <ExpandableInput label="Місто доставки" options={['Львів', 'Київ', 'Івано-Франківськ']}/>
 
                             <ExpandableInput label="Відділення/адреса" options={['Львів', 'Київ', 'Івано-Франківськ']}/>
 
-                            <div className={"p-4 flex flex-col min-w-[60%]"}>
+                            <div className={" flex flex-col min-w-[60%]"}>
                                 <label htmlFor={"location"} className={"text-blue-6 text-xl font-medium mb-0.5"}>Локація</label>
                                 <input className={"drop-shadow-2xl p-2 rounded-lg text-blue-6 bg-white w-full"} id={"location"} placeholder={""} type="text" value={locationText || ""} onChange={(e)=>{setLocationText(e.target.value)} }/>
                             </div>
 
-                            <button
-                                className={"bg-gradient-to-r text-2xl from-blue-1 to-yellow-4 rounded-md m-3 hover:scale-105 transition-all duration-500"} onClick={submit}>
+                            <button className={"px-8 lg:w-auto w-full py-2 md:py-3 mt-4 bg-gradient-to-l from-yellow-4 to-blue-1 text-white rounded-lg md:text-2xl duration-500 transition-all hover:from-blue-1 hover:to-yellow-4 hover:bg-gradient-to-r"}
+                                    onClick={submit}>
                                 Замовити
                             </button>
 

@@ -90,9 +90,9 @@ const Navbar: FC = () => {
                     }
                 </div>
             </nav>
-            {open ? <GrClose className={"text-blue-6 text-6xl cursor-pointer z-[111] xl:hidden"} onClick={() => {
+            {open ? <GrClose className={"text-blue-6 text-4xl cursor-pointer mt-2 z-[111] xl:hidden"} onClick={() => {
                 setOpen(false)
-            }}/> : <BiMenu className={"text-blue-6 cursor-pointer text-6xl z-[111] xl:hidden"} onClick={() => {
+            }}/> : <BiMenu className={"text-blue-6 cursor-pointer text-5xl mt-2 z-[111] xl:hidden"} onClick={() => {
                 setOpen(true)
             }}/>}
         </header>
