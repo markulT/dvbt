@@ -86,7 +86,7 @@ const Determination = () => {
             <main>
                 <article>
                     <section className={"md:mx-28 mx-4 flex lg:flex-row flex-col items-center"}>
-                        <div className={"flex flex-col py-[10%] lg:w-1/2 w-full"}>
+                        <div className={"flex flex-col py-[10%] lg:w-1/2 w-full px-10 lg:px-0"}>
                             <h1 className={"text-blue-5 sm:text-5xl text-4xl font-bold "}>
                                 Як визначити яку <a className={"text-yellow-4"}>антену</a> мені потрібно?
                             </h1>
@@ -100,7 +100,7 @@ const Determination = () => {
                                 та ви одразу зможете її придбати
                             </p>
                         </div>
-                        <div className={"lg:basis-1/2 w-[50vw] h-[50vh] relative"}>
+                        <div className={"lg:basis-1/2 w-full lg:w-[50vw] lg:h-[50vh] h-[40vh] relative"}>
                             <Image
                                 layout="fill"
                                 objectFit="cover"
@@ -117,11 +117,11 @@ const Determination = () => {
                             <h2 className={"text-blue-5 font-bold text-3xl"}>
                                 Визначення
                             </h2>
-                            <div className={"flex w-[100%] px-10 lg:h-[50vh] h-screen flex-col-reverse lg:flex-row"}>
+                            <div className={"mt-4 lg:mt-8 flex w-[100%] px-10 lg:h-[50vh] h-screen flex-col-reverse lg:flex-row"}>
                                 <div className={"basis-1/2 flex flex-col items-center justify-start"}>
 
-                                    <div className={"justify-self-start self-start text-blue-6"}>
-                                        <h3 className={"text-2xl font-medium"}>Чи є перешкоди на шляху до вежі ?</h3>
+                                    <div className={"mt-4 justify-self-start self-start text-blue-6"}>
+                                        <h3 className={"text-2xl font-semibold"}>Чи є перешкоди на шляху до вежі ?</h3>
                                         <div>
                                             {obstacleList.map((obstacle) => <RadioInput key={obstacle.status}
                                                                                         value={obstacle.status}
@@ -131,7 +131,7 @@ const Determination = () => {
                                         </div>
                                     </div>
 
-                                    <div className={"justify-self-start self-start text-blue-6"}>
+                                    <div className={"mt-4 justify-self-start self-start text-blue-6"}>
                                         <h3 className={"text-2xl font-medium"}>Опишіть свою місцевість: </h3>
                                         <div>
                                             {geoList.map((geo) => <RadioInput key={geo.status}
@@ -142,7 +142,7 @@ const Determination = () => {
                                         </div>
                                     </div>
 
-                                    <span className={"text-blue-6 text-2xl"}>
+                                    <span className={"mt-4 text-blue-6 text-2xl"}>
                                         <h3>Відстань : {Math.floor(distance)/1000} км</h3>
                                     </span>
 

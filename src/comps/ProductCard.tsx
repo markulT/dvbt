@@ -19,6 +19,7 @@ const ProductCard: FC<ProcutCardProps> = ({title, imgName, name, price, id}) => 
     const dispatch = useAppDispatch()
     const [imgUrl, setImgUrl] = useState<any>()
     const router = useRouter()
+    const maxSymbols = 25;
 
 
     useEffect(()=>{
@@ -50,7 +51,10 @@ const ProductCard: FC<ProcutCardProps> = ({title, imgName, name, price, id}) => 
                     />
                 </div>
 
-                <h3 className="text-xl font-bold text-blue-5 font-medium mt-[5%] max-w-lg">
+                <h3 className=" sm:truncate text-xl font-bold text-blue-5 font-medium mt-[5%] max-w-lg">
+                    {/*{title.length > maxSymbols*/}
+                    {/*? `${title.slice(0, maxSymbols)}...`*/}
+                    {/*: title}*/}
                     {title}
                 </h3>
                 <div className="mt-[5%]">

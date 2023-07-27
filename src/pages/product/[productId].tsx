@@ -93,7 +93,7 @@ const ProductPage: FC = () => {
                                 </div>
                             </div>
                             <div className={"col-span-2 bg-white shadow-blue-6 drop-shadow-2xl lg:p-4 p-3 rounded-xl text-blue-5 mb-8"}>
-                                <h2 className={"lg:text-xl text-lg font-bold"}>Рекомендуємо придбати також :</h2>
+                                <h2 className={"lg:text-xl text-md font-bold"}>Рекомендуємо придбати також :</h2>
                                 {/*@ts-ignore*/}
                                 {product?.complementary && product?.complementary?.map(()=><ComplementaryField key={product.id?.toString()} title={product.title} id={product.id?.toString()} />)}
                             </div>

@@ -66,7 +66,7 @@ const Checkout:FC = () => {
                                                                          price={orderItem.product.price}
                                                                          id={orderItem.product.id?.toString() || ""}
                                                                          name={orderItem.product.name}/>
-                                                            <div className={"text-blue-6 flex items-center w-full justify-around mt-4 lg:mt-0"}>
+                                                            <div className={"text-blue-6 flex items-center w-full justify-around my-4 lg:my-6"}>
                                                                 <FaMinus className={"cursor-pointer"} onClick={()=>{
                                                                     //@ts-ignore
                                                                     decreaseQuantity(1, orderItem.product.id?.toString())
@@ -112,7 +112,7 @@ const Checkout:FC = () => {
                                 <input className={"drop-shadow-2xl p-2 rounded-lg text-blue-6 bg-white w-full"} id={"location"} placeholder={""} type="text" value={locationText || ""} onChange={(e)=>{setLocationText(e.target.value)} }/>
                             </div>
 
-                            <button className={"px-8 lg:w-auto w-full py-2 md:py-3 mt-4 bg-gradient-to-l from-yellow-4 to-blue-1 text-white rounded-lg md:text-2xl duration-500 transition-all hover:from-blue-1 hover:to-yellow-4 hover:bg-gradient-to-r"}
+                            <button className={"px-8 mb-8  lg:w-auto w-full py-2 md:py-3 mt-4 bg-gradient-to-l from-yellow-4 to-blue-1 text-white rounded-lg md:text-2xl duration-500 transition-all hover:from-blue-1 hover:to-yellow-4 hover:bg-gradient-to-r"}
                                     onClick={submit}>
                                 Замовити
                             </button>

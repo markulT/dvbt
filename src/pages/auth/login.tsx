@@ -33,21 +33,21 @@ const Login:FC = () => {
     return (
         <main className={"min-h-screen bg-white-bg"}>
             <article className={"min-h-screen flex"}>
-                <BiArrowBack className={"text-5xl lg:text-white text-blue-6 absolute top-4 left-4 z-[100] cursor-pointer"} onClick={()=>{router.back()}} />
+                <BiArrowBack className={"text-5xl lg:text-white text-blue-6 absolute top-8 left-8 z-[100] cursor-pointer"} onClick={()=>{router.back()}} />
                 <div className={"basis-3/5 grow-0 h-auto relative lg:block hidden"}>
                     <Image layout={'fill'} src={'/images/mainPage/antenna.jpg'} objectFit={'cover'} alt={'image'} objectPosition={'center'}/>
                 </div>
                 <div className={"grow-1 flex-1 flex justify-center flex-col items-center"}>
-                    <h1 className={"text-4xl z-30 text-center text-blue-6 font-medium"}>З поверненням!</h1>
+                    <h1 className={"text-4xl z-30 text-center text-blue-6 font-bold"}>З поверненням!</h1>
 
-                    <div className={"p-4 flex flex-col min-w-[60%]"}>
+                    <div className={"p-4 flex flex-col md:min-w-[60%] min-w-[90%]"}>
                         <label htmlFor={"email"} className={"text-blue-6 text-xl font-medium mb-0.5"}>Email</label>
-                        <input className={"drop-shadow-2xl p-2 rounded-lg text-blue-6 bg-white w-full"} id={"email"} placeholder={"email@example.com..."} type="text" value={email} onChange={(e)=>{setEmail(e.target.value)} }/>
+                        <input className={"drop-shadow-2xl py-3 p-2 rounded-lg text-blue-6 bg-white w-full"} id={"email"} placeholder={"email@example.com..."} type="text" value={email} onChange={(e)=>{setEmail(e.target.value)} }/>
                     </div>
 
-                    <div className={"p-4 flex flex-col min-w-[60%]"}>
+                    <div className={"p-4 flex flex-col md:min-w-[60%] min-w-[90%]"}>
                         <label htmlFor={"password"} className={"text-blue-6 text-xl font-medium mb-0.5"}>Пароль</label>
-                        <input className={"drop-shadow-2xl p-2 rounded-lg text-blue-6 bg-white w-full"} id={"password"} placeholder={"email@example.com..."} type="text" value={password} onChange={(e)=>{setPassword(e.target.value)} }/>
+                        <input className={"drop-shadow-2xl py-3 p-2 rounded-lg text-blue-6 bg-white w-full"} id={"password"} placeholder={"87654321"} type="text" value={password} onChange={(e)=>{setPassword(e.target.value)} }/>
                     </div>
 
                     <GradientButton title={"Логін"} onClick={handleLogin} />

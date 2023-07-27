@@ -15,7 +15,7 @@ const Navbar: FC = () => {
     const userEmail = useAppSelector((state) => state.auth.email)
 
     return (
-        <header className={"flex flex-row justify-around  px-8 items-center bg-white-bg"}>
+        <header className={"flex flex-row justify-between lg:justify-around px-10 md:px-8 sm:py-8 items-center bg-white-bg"}>
             {/*<div className={"hover:scale-105 transition-all duration-500"}>*/}
             {/*    <Image*/}
             {/*        draggable={false}*/}
@@ -24,14 +24,14 @@ const Navbar: FC = () => {
             {/*        src={'./images/mainPage/logo-color.svg'}*/}
             {/*    />*/}
             {/*</div>*/}
-            <div className={"shrink-0 basis-1/8 grow-1 z-[115]"}>
+            <div className={"relative w-1/2 md:w-1/3 lg:w-1/6 pb-24 z-[115]"}>
                 <Image
                     draggable={false}
                     onClick={() => {
                         router.push('/')
                     }}
-                    height={60}
-                    width={200}
+                    layout={'fill'}
+                    objectFit={'cover'}
                     src={'/images/mainPage/logo-color.svg'}
                     alt={"Логотип"}
                     className={"cursor-pointer outline-0 remove-highlight z-[115]"}

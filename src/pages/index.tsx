@@ -76,7 +76,7 @@ export default function Home() {
                 {/*    </div>*/}
                 {/*</section>*/}
 
-                <section className={'mt-20 '}>
+                <section className={'mt-8 md:mt-16'}>
                     <div className={'flex h-fit md:h-screen justify-end'}>
                         <div className={"w-full h-full brightness-50 absolute"}>
                             <Image
