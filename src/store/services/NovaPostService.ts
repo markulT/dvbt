@@ -42,7 +42,7 @@ export const getSettlements = async (
             },
         }),
     };
-
+    //@ts-ignore
     const response: Response = await fetch(API_BASE_URL, requestOptions);
     console.log(response.body)
     console.log(await response.json())
