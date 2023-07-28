@@ -10,6 +10,7 @@ import {intentOrder} from "@/store/reducers/orders/orderThunks";
 import CheckoutProductCard from "@/comps/CheckoutProductCard";
 import {useRouter} from "next/router";
 import Head from "next/head";
+import {getSettlements} from "@/store/services/NovaPostService";
 
 const Checkout:FC = () => {
 
@@ -39,6 +40,23 @@ const Checkout:FC = () => {
     }
 
 
+    const [results, setResults] = useState([]);
+
+    const handleSearch = async () => {
+        try {
+            const response = await getSettlements('Київ');
+            if (response.success) {
+                setResults(response.data);
+            } else {
+                // Handle error cases here if needed
+            }
+        } catch (error) {
+            // Handle API call errors here if needed
+        }
+    };
+
+
+
     return (
 
         <div className="bg-white-bg min-h-screen w-full">
@@ -52,6 +70,7 @@ const Checkout:FC = () => {
                 <article>
                     <section className="mx-4 sm:mx-10 md:mx-20 lg:mx-28 flex flex-col">
                         <h1 className="lg:text-4xl text-2xl text-blue-5 font-bold">Каталог зовнішніх антен</h1>
+                        <button className={"text-blue-5"} onClick={handleSearch}>test</button>
                         <div className="w-full p-3 bg-white drop-shadow-2xl rounded-xl mt-4">
                             <div className="flex justify-center flex-col lg:flex-row lg:justify-between">
                                 <div className="flex flex-col items-center lg:items-start">
