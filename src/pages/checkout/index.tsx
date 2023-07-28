@@ -40,7 +40,13 @@ const Checkout:FC = () => {
     }
 
 
-    const [results, setResults] = useState([]);
+    interface Settlement {
+        Ref: string;
+        // Add other properties of the 'Settlement' type here
+    }
+
+    const [results, setResults] = useState<Settlement[]>([]); // Specify the type 'Settlement[]'
+
 
     const handleSearch = async () => {
         try {
@@ -54,7 +60,6 @@ const Checkout:FC = () => {
             // Handle API call errors here if needed
         }
     };
-
 
 
     return (

@@ -6,6 +6,7 @@ interface Settlement {
     // Add other properties of the 'Settlement' type here
 }
 
+
 interface ApiResponse {
     success: boolean;
     data: Settlement[];
