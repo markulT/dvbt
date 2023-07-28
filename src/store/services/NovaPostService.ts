@@ -44,7 +44,7 @@ export const getSettlements = async (
     };
 
     const response: Response = await fetch(API_BASE_URL, requestOptions);
-    console.log(response);
-    console.log(response.body);
+    console.log(response.body)
+    console.log(await response.json())
     return response.json();
 };
