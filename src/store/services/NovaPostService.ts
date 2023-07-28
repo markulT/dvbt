@@ -23,9 +23,9 @@ export const getSettlements = async (
 
     const requestOptions = {
         method: 'POST',
+        mode: 'cors',
         headers: {
             'Content-Type': 'application/json',
-            mode: 'cors',
         },
         body: JSON.stringify({
             apiKey: apiKey,
