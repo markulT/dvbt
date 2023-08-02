@@ -65,12 +65,13 @@ export const getSettlements = async (
         );
 
         if (response.data.success) {
-
+            //@ts-ignore
             return response.data.data;
         } else {
             throw new Error('An error occurred while fetching settlements.');
         }
     } catch (error) {
+        //@ts-ignore
         throw new Error('An error occurred during API call: ' + error.message);
     }
 };
@@ -100,11 +101,13 @@ export const getWarehouses = async (
         );
         console.log(response.data.data)
         if (response.data.success) {
+            //@ts-ignore
             return response.data.data;
         } else {
             throw new Error('An error occurred while fetching settlements.');
         }
     } catch (error) {
+        //@ts-ignore
         throw new Error('An error occurred during API call: ' + error.message);
     }
 };

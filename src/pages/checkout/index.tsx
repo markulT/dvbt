@@ -124,7 +124,7 @@ const Checkout:FC = () => {
         console.log('searchedWarehouseRef:', searchedWarehouseRef.current);
     }, [searchedWarehouseRef.current]);
 
-
+    //@ts-ignore
     const colourStyles: StylesConfig = {
         control: (styles) => ({ ...styles,
             backgroundColor: 'white',
@@ -243,10 +243,13 @@ const Checkout:FC = () => {
                                     Місто доставки
                                 </label>
                                 <AsyncSelect
+                                    //@ts-ignore
                                     styles={colourStyles}
                                     placeholder={"Виберіть місто"}
+                                    //@ts-ignore
                                     onChange={handleSettlementChange}
-                                cacheOptions
+                                    cacheOptions
+                                    //@ts-ignore
                                     loadOptions={promiseOptions}
                                 />
                             </div>
