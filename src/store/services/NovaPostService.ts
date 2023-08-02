@@ -1,34 +1,50 @@
+// novaPostService.ts
+import axios, { AxiosResponse } from 'axios';
 
 const API_BASE_URL = 'https://api.novaposhta.ua/v2.0/json/';
+const API_KEY = 'f38b5efe10ab2201e749ac0c3bc35ca3';
 
-interface Settlement {
+export interface Settlement {
     Ref: string;
+    Area: string;
+    AreaDescription: string;
+    Description: string;
+    RegionsDescription: string;
     // Add other properties of the 'Settlement' type here
 }
 
+export interface Warehouse {
+    Ref: string;
+    ShortAddress: string;
+    Number: string;
+    // Add other properties of the 'Settlement' type here
+}
 
 interface ApiResponse {
     success: boolean;
-    data: Settlement[];
-    errors: any[]; // Adjust the type of errors if needed
-    warnings: any[]; // Adjust the type of warnings if needed
+    data: ApiResponseData;
+    errors: any[];
+    warnings: any[];
+}
+
+export type ApiResponseData = Settlement[] | Warehouse[];
+
+interface MethodProperties {
+    AreaRef: string;
+    Ref: string;
+    RegionRef: string;
+    Page: string;
+    Warehouse: string;
+    FindByString: string;
+    Limit: string;
 }
 
 export const getSettlements = async (
     searchText: string
-): Promise<ApiResponse> => {
-    console.log('Nova Post');
-    console.log(searchText);
-    const apiKey = 'f38b5efe10ab2201e749ac0c3bc35ca3';
-
-    const requestOptions = {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            apiKey: apiKey,
+): Promise<Settlement[]> => {
+    try {
+        const requestData = {
+            apiKey: API_KEY,
             modelName: 'Address',
             calledMethod: 'getSettlements',
             methodProperties: {
@@ -40,11 +56,55 @@ export const getSettlements = async (
                 FindByString: searchText,
                 Limit: '',
             },
-        }),
-    };
-    //@ts-ignore
-    const response: Response = await fetch(API_BASE_URL, requestOptions);
-    console.log(response.body)
-    console.log(await response.json())
-    return response.json();
+        };
+
+        const response: AxiosResponse<ApiResponse> = await axios.post(
+            API_BASE_URL,
+            requestData,
+            { headers: { 'Content-Type': 'application/json' } }
+        );
+
+        if (response.data.success) {
+
+            return response.data.data;
+        } else {
+            throw new Error('An error occurred while fetching settlements.');
+        }
+    } catch (error) {
+        throw new Error('An error occurred during API call: ' + error.message);
+    }
+};
+
+export const getWarehouses = async (
+    searchText: string,
+    cityName: string
+): Promise<Warehouse[]> => {
+    try {
+        console.log('city' + cityName)
+        console.log('warehouse' + searchText)
+        const requestData = {
+            apiKey: API_KEY,
+            modelName: 'Address',
+            calledMethod: 'getWarehouses',
+            methodProperties: {
+                CityName: cityName,
+                Language: "UA",
+                WarehouseId : searchText.toString()
+            },
+        };
+
+        const response: AxiosResponse<ApiResponse> = await axios.post(
+            API_BASE_URL,
+            requestData,
+            { headers: { 'Content-Type': 'application/json' } }
+        );
+        console.log(response.data.data)
+        if (response.data.success) {
+            return response.data.data;
+        } else {
+            throw new Error('An error occurred while fetching settlements.');
+        }
+    } catch (error) {
+        throw new Error('An error occurred during API call: ' + error.message);
+    }
 };

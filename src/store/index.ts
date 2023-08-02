@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
     category: categorySlice.reducer,
     order:orderSlice.reducer,
     tower:towerSlice.reducer,
-    banner:bannerSlice.reducer
+    banner:bannerSlice.reducer,
 })
 
 export const store = configureStore({
