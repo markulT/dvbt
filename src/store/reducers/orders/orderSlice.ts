@@ -39,7 +39,9 @@ export const orderSlice = createSlice({
         setError() {},
         addToCartAction(state, action:PayloadAction<Product>) {
             //@ts-ignore
-            if (state.createOrder.productList.some((orderItem:OrderItem)=>orderItem.product.id == action.payload.id))
+            if (state.createOrder.productList.some((orderItem:OrderItem)=>orderItem.product.id == action.payload.id)) {
+                return
+            }
             state.createOrder.productList.push({product:action.payload, quantity:1});
         },
         removeFromCartAction(state, action: PayloadAction<Product>) {
