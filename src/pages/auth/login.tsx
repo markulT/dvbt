@@ -19,13 +19,14 @@ const Login:FC = () => {
 
     const dispatch = useAppDispatch()
     const authError = useAppSelector((state)=>state.auth.error)
+    const userEmail = useAppSelector((state)=>state.auth.email)
 
     async function handleLogin() {
         if(email == null || password == null) {
             return
         }
-        dispatch(login({email:email, password:password}))
-        if(!authError) {
+        await dispatch(login({email:email, password:password}))
+        if(!authError || userEmail) {
             router.push("/")
         }
     }

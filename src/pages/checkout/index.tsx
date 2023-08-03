@@ -14,6 +14,8 @@ import {getSettlements, getWarehouses} from "@/store/services/NovaPostService";
 import Select, {ActionMeta, GroupBase, StylesConfig} from "react-select";
 import AsyncSelect from "react-select/async";
 import {ValueType} from "tailwindcss/types/config";
+import {BiTrash} from "react-icons/bi";
+import {Product} from "@/store/models/Product";
 
 const Checkout:FC = () => {
 
@@ -166,6 +168,10 @@ const Checkout:FC = () => {
     //     console.log(searchedWarehouseRef.current);
     // };
 
+    function removeFromCart(product:Product) {
+        dispatch(orderSliceActions.removeFromCartAction(product))
+    }
+
     return (
 
         <div className="bg-white-bg min-h-screen w-full">
@@ -194,6 +200,9 @@ const Checkout:FC = () => {
                                                                          id={orderItem.product.id?.toString() || ""}
                                                                          name={orderItem.product.name}/>
                                                             <div className={"text-blue-6 flex items-center w-full justify-around my-4 lg:my-6"}>
+                                                                <BiTrash className={"cursor-pointer"} onClick={()=>{
+                                                                    removeFromCart(orderItem.product)
+                                                                }} />
                                                                 <FaMinus className={"cursor-pointer"} onClick={()=>{
                                                                     //@ts-ignore
                                                                     decreaseQuantity(1, orderItem.product.id?.toString())

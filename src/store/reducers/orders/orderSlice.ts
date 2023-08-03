@@ -42,13 +42,7 @@ export const orderSlice = createSlice({
         },
         removeFromCartAction(state, action: PayloadAction<Product>) {
             const productIdToRemove = action.payload.id;
-            const indexToRemove = state.createOrder.productList.findIndex(
-                (item) => item.product.id === productIdToRemove
-            );
-
-            if (indexToRemove !== -1) {
-                state.createOrder.productList.splice(indexToRemove, 1);
-            }
+            state.createOrder.productList = state.createOrder.productList.filter((product:Product)=> product.id != productIdToRemove )
         },
 
         addQuantity(state, action:PayloadAction<EditProductQuantity>) {
@@ -59,6 +53,10 @@ export const orderSlice = createSlice({
         subtractQuantity(state, action:PayloadAction<EditProductQuantity>) {
             let productToEdit = state.createOrder.productList.find(orderItem=>orderItem.product.id === action.payload.id)
             //@ts-ignore
+            if (productToEdit <= 1) {
+                productToEdit.quantity = 1;
+                return;
+            }
             productToEdit.quantity = productToEdit.quantity - action.payload.quantity;
         },
         clearCart(state) {
