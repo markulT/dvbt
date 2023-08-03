@@ -54,7 +54,8 @@ export const orderSlice = createSlice({
         subtractQuantity(state, action:PayloadAction<EditProductQuantity>) {
             let productToEdit = state.createOrder.productList.find(orderItem=>orderItem.product.id === action.payload.id)
             //@ts-ignore
-            if (productToEdit <= 1) {
+            if (productToEdit <= 1 || productToEdit) {
+                //@ts-ignore
                 productToEdit.quantity = 1;
                 return;
             }
