@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {CreateOrder, IFullOrder, IOrder} from "@/store/models/IOrders";
+import {CreateOrder, IFullOrder, IOrder, OrderItem} from "@/store/models/IOrders";
 import {getAllOrders, getOrderDetails, intentOrder} from "@/store/reducers/orders/orderThunks";
 import {GetPageResponse} from "@/store/types/GetPage";
 import {Product} from "@/store/models/Product";
@@ -45,7 +45,7 @@ export const orderSlice = createSlice({
             console.log(state.createOrder.productList)
             console.log(productIdToRemove)
             //@ts-ignore
-            const updatedList = state.createOrder.productList.filter((product:Product)=> product.id !== productIdToRemove )
+            const updatedList = state.createOrder.productList.filter((product:OrderItem)=> product.product.id !== productIdToRemove )
             console.log(updatedList)
             state.createOrder.productList = updatedList
         },
