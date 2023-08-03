@@ -38,6 +38,8 @@ export const orderSlice = createSlice({
     reducers:{
         setError() {},
         addToCartAction(state, action:PayloadAction<Product>) {
+            //@ts-ignore
+            if (state.createOrder.productList.some((orderItem:OrderItem)=>orderItem.product.id == action.payload.id))
             state.createOrder.productList.push({product:action.payload, quantity:1});
         },
         removeFromCartAction(state, action: PayloadAction<Product>) {
