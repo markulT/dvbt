@@ -42,7 +42,8 @@ export const orderSlice = createSlice({
         },
         removeFromCartAction(state, action: PayloadAction<Product>) {
             const productIdToRemove = action.payload.id;
-            state.createOrder.productList = state.createOrder.productList.filter((product:Product)=> product.id != productIdToRemove )
+            //@ts-ignore
+            state.createOrder.productList.filter((product:Product)=> product.id != productIdToRemove )
         },
 
         addQuantity(state, action:PayloadAction<EditProductQuantity>) {
