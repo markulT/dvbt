@@ -44,7 +44,7 @@ export const orderSlice = createSlice({
             const productIdToRemove = action.payload.id;
             console.log(state.createOrder.productList.length)
             //@ts-ignore
-            const updatedList = state.createOrder.productList.filter((product:Product)=> product.id != productIdToRemove )
+            const updatedList = state.createOrder.productList.filter((product:Product)=> product.id == productIdToRemove )
             console.log(updatedList)
             state.createOrder.productList = updatedList
         },
