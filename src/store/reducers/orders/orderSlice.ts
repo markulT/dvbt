@@ -59,6 +59,7 @@ export const orderSlice = createSlice({
                 productToEdit.quantity = 1;
                 return;
             }
+            // a
             //@ts-ignore
             productToEdit.quantity = productToEdit.quantity - action.payload.quantity;
         },
