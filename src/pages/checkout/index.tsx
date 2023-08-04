@@ -31,8 +31,9 @@ const Checkout:FC = () => {
         dispatch(orderSliceActions.subtractQuantity({id:id, quantity:quantity}))
     }
     async function submit() {
+        let location = `${searchedCity} ${searchedWarehouse}`
         //@ts-ignore
-        if (orderItemList == [] || locationText === '') {
+        if (orderItemList == [] || location === '') {
             return
         }
         const orderItemListRequest = orderItemList.map(orderItem=>{
@@ -162,11 +163,11 @@ const Checkout:FC = () => {
         }
     };
 
-    // const handleWarehouseChange = (selectedOption) => {
-    //     setSearchedWarehouse(selectedOption);
-    //     searchedWarehouseRef.current = selectedOption;
-    //     console.log(searchedWarehouseRef.current);
-    // };
+    const handleWarehouseChange = (selectedOption) => {
+        setSearchedWarehouse(selectedOption);
+        searchedWarehouseRef.current = selectedOption;
+        console.log(searchedWarehouseRef.current);
+    };
 
     function removeFromCart(product:Product) {
         dispatch(orderSliceActions.removeFromCartAction(product))
@@ -269,7 +270,7 @@ const Checkout:FC = () => {
                                 <AsyncSelect
                                     styles={colourStyles}
                                     placeholder={"Виберіть відділення"}
-                                    // onChange={handleWarehouseChange}
+                                    onChange={handleWarehouseChange}
                                     cacheOptions
                                     loadOptions={promiseWarehousesOptions}
                                 />
