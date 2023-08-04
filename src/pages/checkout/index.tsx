@@ -162,7 +162,7 @@ const Checkout:FC = () => {
             console.log(searchedCityRef.current);
         }
     };
-
+    //@ts-ignore
     const handleWarehouseChange = (selectedOption) => {
         setSearchedWarehouse(selectedOption);
         searchedWarehouseRef.current = selectedOption;
