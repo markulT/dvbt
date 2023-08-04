@@ -31,7 +31,10 @@ const Checkout:FC = () => {
         dispatch(orderSliceActions.subtractQuantity({id:id, quantity:quantity}))
     }
     async function submit() {
-        let location = `${searchedCity} ${searchedWarehouse}`
+        let location = `${searchedCityRef} ${searchedWarehouseRef}`
+        console.log(location)
+        console.log(searchedCityRef)
+        console.log(searchedWarehouseRef)
         //@ts-ignore
         if (orderItemList == [] || location === '') {
             return
@@ -40,7 +43,7 @@ const Checkout:FC = () => {
             return {productId:orderItem.product.id?.toString(), quantity:orderItem.quantity}
         })
         // @ts-ignore
-        await dispatch(intentOrder({productList:orderItemListRequest, location:locationText || ""}))
+        await dispatch(intentOrder({productList:orderItemListRequest, location:location || ""}))
         dispatch(orderSliceActions.clearCart())
         router.push('checkout/status');
     }

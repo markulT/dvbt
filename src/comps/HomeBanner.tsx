@@ -29,7 +29,7 @@ const HomeBanner: FC = () => {
     }, [])
     useEffect(() => {
         fetchData()
-    }, [banner])
+    }, [banner.id])
 
     return (
         <div className={`bg-gradient-to-r from-blue-5 to-blue-3 rounded-xl relative flex flex-col-reverse xl:flex-row justify-between lg:mx-28 mx-10`}>
