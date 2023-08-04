@@ -31,10 +31,10 @@ const Checkout:FC = () => {
         dispatch(orderSliceActions.subtractQuantity({id:id, quantity:quantity}))
     }
     async function submit() {
-        let location = `${searchedCityRef} ${searchedWarehouseRef}`
+        let location = `${searchedCityRef.current} ${searchedWarehouseRef.current}`
         console.log(location)
-        console.log(searchedCityRef)
-        console.log(searchedWarehouseRef)
+        console.log(searchedCityRef.current)
+        console.log(searchedWarehouseRef.current)
         //@ts-ignore
         if (orderItemList == [] || location === '') {
             return
