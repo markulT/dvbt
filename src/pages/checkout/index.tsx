@@ -14,8 +14,9 @@ import {getSettlements, getWarehouses} from "@/store/services/NovaPostService";
 import Select, {ActionMeta, GroupBase, StylesConfig} from "react-select";
 import AsyncSelect from "react-select/async";
 import {ValueType} from "tailwindcss/types/config";
-import {BiTrash} from "react-icons/bi";
+import {BiTrash, BiErrorCircle} from "react-icons/bi";
 import {Product} from "@/store/models/Product";
+import PopupLogin from "@/comps/PopupLogin";
 
 const Checkout:FC = () => {
 
@@ -30,23 +31,31 @@ const Checkout:FC = () => {
     function decreaseQuantity(quantity:number, id:string) {
         dispatch(orderSliceActions.subtractQuantity({id:id, quantity:quantity}))
     }
+
+    const userEmail = useAppSelector((state)=>state.auth.email)
     async function submit() {
-        //@ts-ignore
-        let location = `${searchedCityRef.current} ${searchedWarehouseRef.current.label}`
-        console.log(location)
-        console.log(searchedCityRef.current)
-        console.log(searchedWarehouseRef.current)
-        //@ts-ignore
-        if (orderItemList == [] || location === '') {
-            return
+        console.log("email")
+        console.log(userEmail)
+        if(!userEmail) {
+            setLoginPopupVisible(true);
+        } else {
+            //@ts-ignore
+            let location = `${searchedCityRef.current} ${searchedWarehouseRef.current.label}`
+            console.log(location)
+            console.log(searchedCityRef.current)
+            console.log(searchedWarehouseRef.current)
+            //@ts-ignore
+            if (orderItemList == [] || location === '') {
+                return
+            }
+            const orderItemListRequest = orderItemList.map(orderItem=>{
+                return {productId:orderItem.product.id?.toString(), quantity:orderItem.quantity}
+            })
+            // @ts-ignore
+            await dispatch(intentOrder({productList:orderItemListRequest, location:location || ""}))
+            dispatch(orderSliceActions.clearCart())
+            router.push('checkout/status');
         }
-        const orderItemListRequest = orderItemList.map(orderItem=>{
-            return {productId:orderItem.product.id?.toString(), quantity:orderItem.quantity}
-        })
-        // @ts-ignore
-        await dispatch(intentOrder({productList:orderItemListRequest, location:location || ""}))
-        dispatch(orderSliceActions.clearCart())
-        router.push('checkout/status');
     }
 
 
@@ -176,6 +185,7 @@ const Checkout:FC = () => {
     function removeFromCart(product:Product) {
         dispatch(orderSliceActions.removeFromCartAction(product))
     }
+    const [loginPopupVisible, setLoginPopupVisible] = useState<boolean>(false);
 
     return (
 
@@ -185,8 +195,9 @@ const Checkout:FC = () => {
                 <meta name="description" content="Зробіть своє замовлення простим і зручним на сторінці My T2 - вашого надійного постачальника антен та передатчиків DVB-T2. Заповнюйте форму замовлення згідно своїх вподобань і потреб, і додавайте бажані товари до свого кошика. Наша інтуїтивно зрозуміла система кошика дозволить вам легко переглядати та керувати своїми замовленнями перед оформленням. З My T2 ви можете бути впевнені, що ваші антени та передатчики будуть відповідати найвищим стандартам якості. Зробіть своє замовлення простим і зручним з My T2 - вашим надійним партнером у покупці антен та передатчиків DVB-T2." />
                 <meta name="keywords" content="DVB-T2 антени, DVB-T2 передатчики, ефірні антени, ефірне телебачення, антени для цифрового телебачення, передатчики для ефірного телебачення"/>
             </Head>
+            <PopupLogin visible={loginPopupVisible} setVisible={setLoginPopupVisible}/>
             <Navbar />
-            <main className="flex flex-col w-full">
+            <main className="flex flex-col w-full relative">
                 <article>
                     <section className="mx-4 sm:mx-10 md:mx-20 lg:mx-28 flex flex-col">
                         <h1 className="lg:text-4xl text-2xl text-blue-5 font-bold">Каталог зовнішніх антен</h1>

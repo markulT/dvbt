@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     screens: {
+      '2xs': '320px',
+      // => @media (min-width: 640px) { ... }
+
       'xs': '420px',
       // => @media (min-width: 640px) { ... }
 
@@ -57,7 +60,7 @@ module.exports = {
       'yellow-2': '#FFE246',
       'yellow-1': '#FFF75E',
       'white': '#ffffff',
-      'red-1':'#ff0000',
+      'error':'#F97364',
       'black-rgba':'rgba(0,0,0,0.90)'
     },
   },

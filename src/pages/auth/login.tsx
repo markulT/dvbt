@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+ import {FC, useEffect, useState} from "react";
 import Image from "next/image";
 import {BiArrowBack} from "react-icons/bi";
 import {useRouter} from "next/router";
@@ -15,6 +15,7 @@ const Login:FC = () => {
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const [error, setError] = useState<boolean>(false)
 
 
     const dispatch = useAppDispatch()
@@ -22,14 +23,14 @@ const Login:FC = () => {
     const userEmail = useAppSelector((state)=>state.auth.email)
 
     async function handleLogin() {
-        if(email == null || password == null) {
-            return
-        }
-        await dispatch(login({email:email, password:password}))
-        if(!authError || userEmail) {
-            router.push("/")
-        }
+        await dispatch(login({ email: email, password: password }))
     }
+
+    useEffect(() => {
+        if (userEmail) {
+            router.push('/');
+        }
+    }, [userEmail, router]);
 
     return (
         <main className={"min-h-screen bg-white-bg"}>
@@ -48,9 +49,9 @@ const Login:FC = () => {
 
                     <div className={"p-4 flex flex-col md:min-w-[60%] min-w-[90%]"}>
                         <label htmlFor={"password"} className={"text-blue-6 text-xl font-medium mb-0.5"}>Пароль</label>
-                        <input className={"drop-shadow-2xl py-3 p-2 rounded-lg text-blue-6 bg-white w-full"} id={"password"} placeholder={"87654321"} type="text" value={password} onChange={(e)=>{setPassword(e.target.value)} }/>
+                        <input className={"drop-shadow-2xl py-3 p-2 rounded-lg text-blue-6 bg-white w-full"} id={"password"} placeholder={"87654321"} type="password" value={password} onChange={(e)=>{setPassword(e.target.value)} }/>
                     </div>
-
+                    {error? <label htmlFor={"email"} className={"text-error text-md font-medium mb-0.5"}>Помилка логіну, спробуйте ще раз!</label> : ' '}
                     <GradientButton title={"Логін"} onClick={handleLogin} />
                     <div className={"flex items-center mt-4"}>
                         <span className={"text-blue-5 font-medium"}>Немає акаунту ?</span>
