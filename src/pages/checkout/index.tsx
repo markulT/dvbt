@@ -29,6 +29,7 @@ const Checkout:FC = () => {
         dispatch(orderSliceActions.addQuantity({id:id, quantity:quantity}))
     }
     function decreaseQuantity(quantity:number, id:string) {
+console.log(quantity)
         dispatch(orderSliceActions.subtractQuantity({id:id, quantity:quantity}))
     }
 
@@ -220,8 +221,13 @@ const Checkout:FC = () => {
                                                                     removeFromCart(orderItem.product)
                                                                 }} />
                                                                 <FaMinus className={"cursor-pointer"} onClick={()=>{
-                                                                    //@ts-ignore
-                                                                    decreaseQuantity(1, orderItem.product.id?.toString())
+                                                                    if (orderItem.quantity > 1) {
+                                                                        //@ts-ignore
+                                                                        decreaseQuantity(1, orderItem.product.id?.toString())
+                                                                    }
+                                                                    else {
+                                                                        removeFromCart(orderItem.product)
+                                                                    }
                                                                 }} />
                                                                 <span className={"text-2xl"}>
                                                                 {orderItem.quantity}
